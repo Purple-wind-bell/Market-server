@@ -184,6 +184,7 @@ public class LoginRegistServlet extends HttpServlet {
 				cookie.setPath("/");
 			}
 		}
+		System.out.println("zx");
 		out.write("注销成功！！！即将前往主页...");
 		response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/index.html");
 
