@@ -1,0 +1,22 @@
+footer embed {
+	width: 100%;
+	height: auto;
+}
+
+header embed {
+	width: 100%;
+	height: auto;
+}
+
+.input-text-middle {
+	width: 250px;
+}
+
+.input-text-short {
+	width: 150px;
+}
+
+.myCarousel-style {
+	width: 1200px;
+	height: 750px;
+}
