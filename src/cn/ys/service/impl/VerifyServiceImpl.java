@@ -44,7 +44,7 @@ public class VerifyServiceImpl implements VerifyService {
 	}
 
 	@Override
-	public String queryBindUser(String visitorID) {
+	public String queryBindUsername(String visitorID) {
 		Token token = null;
 		if (tokenMap.containsKey(visitorID)) {
 			token = tokenMap.get(visitorID);

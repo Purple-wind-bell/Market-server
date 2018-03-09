@@ -1,29 +1,31 @@
 package cn.ys.vo;
 
+import java.io.Serializable;
+
 /**
  * 单商品购物车
  * 
  * @author Administrator
  *
  */
-public class Cart {
-	String userId;
+public class Cart implements Serializable {
+	String username;
 	String productId;
 	Integer quantity;
-
-	public Cart(String userId, String productId, Integer quantity) {
-		super();
-		this.userId = userId;
-		this.productId = productId;
-		this.quantity = quantity;
-	}
 
 	public Cart() {
 		super();
 	}
 
-	public String getUserId() {
-		return userId;
+	public Cart(String username, String productId, Integer quantity) {
+		super();
+		this.username = username;
+		this.productId = productId;
+		this.quantity = quantity;
+	}
+
+	public String getUsername() {
+		return username;
 	}
 
 	public String getProductId() {
@@ -34,8 +36,8 @@ public class Cart {
 		return quantity;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public void setProductId(String productId) {

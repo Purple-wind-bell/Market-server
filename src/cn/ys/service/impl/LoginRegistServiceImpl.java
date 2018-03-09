@@ -16,7 +16,6 @@ import cn.ys.vo.User;
  */
 public class LoginRegistServiceImpl implements LoginRegistService {
 	private UserDao udao = new UserDaoImpl();
-	private TokenDao tdao = new TokenDaoImpl();
 	private VerifyService verify = new VerifyServiceImpl();
 
 	/*

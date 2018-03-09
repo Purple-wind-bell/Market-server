@@ -28,10 +28,10 @@ public interface CartDao {
 	/**
 	 * 查询该用户所有购物车
 	 * 
-	 * @param userId
+	 * @param username
 	 * @return
 	 */
-	List<Cart> findAll(String userId);
+	List<Cart> findAll(String username);
 
 	/**
 	 * 修改，一般为修改数量
@@ -39,4 +39,12 @@ public interface CartDao {
 	 * @param cart
 	 */
 	void editCart(Cart cart);
+
+	/**
+	 * 查询指定用户的购物车中的制定商品
+	 * @param username
+	 * @param productId
+	 * @return null-没有该商品；cart-返回指定商品在购物车中的数据
+	 */
+	Cart findCart(String username, String productId);
 }
