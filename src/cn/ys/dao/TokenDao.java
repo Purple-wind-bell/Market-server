@@ -17,6 +17,14 @@ public interface TokenDao {
 	void save(Token token);
 
 	/**
+	 * 查询登录信息
+	 * 
+	 * @param uuid
+	 * @return
+	 */
+	Token findByUUID(String uuid);
+
+	/**
 	 * 删除登录验证
 	 * 
 	 * @param uuid

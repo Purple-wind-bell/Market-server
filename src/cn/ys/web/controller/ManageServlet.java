@@ -78,8 +78,6 @@ public class ManageServlet extends HttpServlet {
 	private void addProduct(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 封装数据
-		System.out.println(request.getParameter("name"));
-		System.out.println(request.getParameter("description"));
 		Product product = FillBeanUtil.fillBean(request, Product.class);
 		s.addProduct(product);
 		request.setAttribute("message", "添加商品成功");

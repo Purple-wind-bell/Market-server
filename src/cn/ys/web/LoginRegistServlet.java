@@ -3,7 +3,10 @@ package cn.ys.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -83,7 +86,16 @@ public class LoginRegistServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String code = request.getParameter("code");
 
-		if (verify.isWebCodeEffective(code, visitorID)) {
+		// 查询uuid
+		String uuid = null;
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if ("visitorID".equalsIgnoreCase(cookie.getName())) {
+				uuid = cookie.getValue();
+			}
+		}
+
+		if (verify.isCodeEffective(code, visitorID)) {
 			switch (lr.login(username, password)) {
 			case 1:
 				// 密码正确
@@ -136,7 +148,7 @@ public class LoginRegistServlet extends HttpServlet {
 		user.setPhone(request.getParameter("phone"));
 		String code = request.getParameter("code");
 
-		if (verify.isWebCodeEffective(code, visitorID)) {
+		if (verify.isCodeEffective(code, visitorID)) {
 			// 检测用户是否存在
 			switch (lr.registUser(user)) {
 			case 1:
@@ -183,7 +195,6 @@ public class LoginRegistServlet extends HttpServlet {
 				cookie.setPath("/");
 			}
 		}
-		System.out.println("zx");
 		out.write("注销成功！！！即将前往主页...");
 		response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/index.html");
 

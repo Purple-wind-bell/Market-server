@@ -33,7 +33,7 @@ public class CartDaoImpl implements CartDao {
 	@Override
 	public List<Cart> findAll(String userId) {
 		try {
-			return qr.query("select * from cart", new BeanListHandler<Cart>(Cart.class));
+			return qr.query("select * from cart where userId = ?", new BeanListHandler<Cart>(Cart.class), userId);
 		} catch (SQLException e) {
 			throw new RuntimeException();
 		}

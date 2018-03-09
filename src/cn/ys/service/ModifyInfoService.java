@@ -16,6 +16,7 @@ public interface ModifyInfoService {
 	int editUserInfo(User user, String password);
 
 	/**
+	 * 重置密码
 	 * 
 	 * @param username
 	 * @param password

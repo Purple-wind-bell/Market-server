@@ -1,8 +1,11 @@
 package cn.ys.service.impl;
 
+import cn.ys.dao.TokenDao;
 import cn.ys.dao.UserDao;
+import cn.ys.dao.impl.TokenDaoImpl;
 import cn.ys.dao.impl.UserDaoImpl;
 import cn.ys.service.LoginRegistService;
+import cn.ys.service.VerifyService;
 import cn.ys.vo.User;
 
 /**
@@ -13,6 +16,8 @@ import cn.ys.vo.User;
  */
 public class LoginRegistServiceImpl implements LoginRegistService {
 	private UserDao udao = new UserDaoImpl();
+	private TokenDao tdao = new TokenDaoImpl();
+	private VerifyService verify = new VerifyServiceImpl();
 
 	/*
 	 * (non-Javadoc)
@@ -63,8 +68,11 @@ public class LoginRegistServiceImpl implements LoginRegistService {
 				status = 3;
 			}
 		}
-
 		return status;
+	}
 
+	@Override
+	public void logout(String uuid) {
+		verify.clearToken(uuid);
 	}
 }

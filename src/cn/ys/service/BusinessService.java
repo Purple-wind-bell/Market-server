@@ -56,6 +56,28 @@ public interface BusinessService {
 	Product findProductById(Integer productId);
 
 	/**
+	 * 查询所有商品
+	 * 
+	 * @return
+	 */
+	List<Product> findAllProduct();
+
+	/**
+	 * 修改商品信息
+	 * 
+	 * @param product
+	 */
+	void editProduct(Product product);
+
+	/**
+	 * 删除商品
+	 * 
+	 * @param productIDs
+	 *            商品id数组
+	 */
+	void delProduct(String... productIDs);
+
+	/**
 	 * 修改分类
 	 * 
 	 * @param categoryName

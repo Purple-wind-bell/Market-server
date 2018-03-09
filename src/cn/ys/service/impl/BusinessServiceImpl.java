@@ -63,4 +63,21 @@ public class BusinessServiceImpl implements BusinessService {
 		productDao.deleteProductById(productId);
 	}
 
+	@Override
+	public List<Product> findAllProduct() {
+		return productDao.findAll();
+	}
+
+	@Override
+	public void editProduct(Product product) {
+		productDao.updateProduct(product.getId(), product);
+	}
+
+	@Override
+	public void delProduct(String... productIDs) {
+		for (String productID : productIDs) {
+			productDao.deleteProductById(Integer.valueOf(productID));
+		}
+	}
+
 }

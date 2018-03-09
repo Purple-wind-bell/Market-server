@@ -64,7 +64,7 @@ public class ModifyInfoServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String code = request.getParameter("code");
 
-		if (verify.isWebCodeEffective(code, visitorID)) {
+		if (verify.isCodeEffective(code, visitorID)) {
 			switch (modifyInfo.resetPassword(username, password)) {
 			case 1:
 				// 成功

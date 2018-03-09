@@ -29,8 +29,8 @@ public abstract class AbstractFilter implements Filter {
 			httpResponse = (HttpServletResponse) response;
 			filter(httpRequest, httpResponse, chain);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			throw new RuntimeException("");
+			// e.printStackTrace();
 		}
 
 	}

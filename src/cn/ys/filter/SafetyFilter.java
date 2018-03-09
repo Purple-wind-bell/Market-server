@@ -7,9 +7,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,11 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebFilter(filterName = "SafetyFilter", urlPatterns = "/*", initParams = {
 		@WebInitParam(name = "encoding", value = "UTF-8") })
 public class SafetyFilter extends AbstractFilter {
-	private static final long serialVersionUID = 1L;
 
 	@Override
 	void filter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) {
-
 		// 生成并设置用户的随机id
 		Cookie[] cookies = request.getCookies();
 		boolean flag = false;
@@ -41,7 +37,11 @@ public class SafetyFilter extends AbstractFilter {
 			cookie.setMaxAge(3600);
 			response.addCookie(cookie);
 		}
-
+		try {
+			chain.doFilter(request, response);
+		} catch (IOException | ServletException e) {
+			throw new RuntimeException("visitorID设置发生错误");
+		}
 	}
 
 }

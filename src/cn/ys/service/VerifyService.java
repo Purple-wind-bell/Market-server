@@ -1,5 +1,11 @@
 package cn.ys.service;
 
+/**
+ * 验证服务
+ * 
+ * @author Administrator
+ *
+ */
 public interface VerifyService {
 
 	/**
@@ -20,5 +26,28 @@ public interface VerifyService {
 	 * @param visitorId
 	 * @return true-有效
 	 */
-	boolean isWebCodeEffective(String code, String visitorId);
+	boolean isCodeEffective(String code, String visitorId);
+
+	/**
+	 * 绑定用户名与浏览器
+	 * 
+	 * @param visitorID
+	 * @param username
+	 */
+	void bindUser(String visitorID, String username);
+
+	/**
+	 * 根据cookie的visitorID查询是否绑定登录用户
+	 * 
+	 * @param visitorID
+	 * @return 未绑定，返回null；否则返回username
+	 */
+	String queryBindUser(String visitorID);
+
+	/**
+	 * 清除token
+	 * 
+	 * @param visitorID
+	 */
+	void clearToken(String visitorID);
 }

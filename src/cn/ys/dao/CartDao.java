@@ -25,6 +25,12 @@ public interface CartDao {
 	 */
 	void delCart(Cart cart);
 
+	/**
+	 * 查询该用户所有购物车
+	 * 
+	 * @param userId
+	 * @return
+	 */
 	List<Cart> findAll(String userId);
 
 	/**

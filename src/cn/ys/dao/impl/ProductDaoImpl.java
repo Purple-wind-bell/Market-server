@@ -66,17 +66,6 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public boolean isExist(String productName) {
-		Product p = null;
-		try {
-			p = qr.query("select * from product where name = ?", new BeanHandler<Product>(Product.class), productName);
-		} catch (SQLException e) {
-			throw new RuntimeException("ss");
-		}
-		return p != null;
-	}
-
-	@Override
 	public Product findById(Integer id) {
 		Product p = null;
 		try {

@@ -24,4 +24,11 @@ public interface LoginRegistService {
 	 */
 	int registUser(User user);
 
+	/**
+	 * 用户注销
+	 * 
+	 * @param uuid
+	 */
+	void logout(String uuid);
+
 }

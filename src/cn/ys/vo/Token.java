@@ -7,29 +7,25 @@ package cn.ys.vo;
  *
  */
 public class Token {
-	String userId;
+	String username;
 	String uuid;
 
-	public Token(String userId, String uuid) {
+	public Token(String username, String uuid) {
 		super();
-		this.userId = userId;
+		this.username = username;
 		this.uuid = uuid;
 	}
 
-	public Token() {
-		super();
-	}
-
-	public String getUserId() {
-		return userId;
+	public String getUsername() {
+		return username;
 	}
 
 	public String getUuid() {
 		return uuid;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public void setUuid(String uuid) {

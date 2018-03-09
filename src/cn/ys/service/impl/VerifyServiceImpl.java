@@ -4,11 +4,16 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import cn.ys.dao.TokenDao;
+import cn.ys.dao.impl.TokenDaoImpl;
 import cn.ys.service.VerifyService;
 import cn.ys.vo.Code;
+import cn.ys.vo.Token;
 
 public class VerifyServiceImpl implements VerifyService {
 	private static Map<String, Code> codeMap = new HashMap<String, Code>();
+	private static Map<String, Token> tokenMap = new HashMap<String, Token>();
+	private TokenDao tdao = new TokenDaoImpl();
 
 	@Override
 	public void updateWebCode(String code, String visitorId) {
@@ -22,13 +27,37 @@ public class VerifyServiceImpl implements VerifyService {
 	}
 
 	@Override
-	public boolean isWebCodeEffective(String code, String visitorId) {
+	public boolean isCodeEffective(String code, String visitorId) {
 		Code c = codeMap.get(visitorId);
 		if (c != null && code.equalsIgnoreCase(codeMap.get(visitorId).getCode())) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public void bindUser(String visitorID, String username) {
+		Token token = new Token(username, visitorID);
+		tokenMap.put(visitorID, token);
+		tdao.save(token);
+	}
+
+	@Override
+	public String queryBindUser(String visitorID) {
+		Token token = null;
+		if (tokenMap.containsKey(visitorID)) {
+			token = tokenMap.get(visitorID);
+		} else {
+			token = tdao.findByUUID(visitorID);
+		}
+		return token == null ? null : token.getUsername();
+	}
+
+	@Override
+	public void clearToken(String visitorID) {
+		tokenMap.remove(visitorID);
+		tdao.delToken(visitorID);
 	}
 
 }

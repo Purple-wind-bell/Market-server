@@ -3,6 +3,7 @@ package cn.ys.dao.impl;
 import java.sql.SQLException;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 
 import cn.ys.dao.TokenDao;
 import cn.ys.util.C3P0Util;
@@ -14,7 +15,7 @@ public class TokenDaoImpl implements TokenDao {
 	@Override
 	public void save(Token token) {
 		try {
-			qr.update("insert into token (userId,uuid) values(?,?)", token.getUserId(), token.getUuid());
+			qr.update("insert into token (username,uuid) values(?,?)", token.getUsername(), token.getUuid());
 		} catch (SQLException e) {
 			throw new RuntimeException();
 		}
@@ -29,6 +30,17 @@ public class TokenDaoImpl implements TokenDao {
 			throw new RuntimeException();
 		}
 		return row != -1;
+	}
+
+	@Override
+	public Token findByUUID(String uuid) {
+		Token token = null;
+		try {
+			token = qr.query("select * from token where uuid = ?", new BeanHandler<Token>(Token.class), uuid);
+		} catch (SQLException e) {
+			throw new RuntimeException("token查询失败");
+		}
+		return token;
 	}
 
 }

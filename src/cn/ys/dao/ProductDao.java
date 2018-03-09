@@ -55,11 +55,4 @@ public interface ProductDao {
 	 */
 	Product findById(Integer id);
 
-	/**
-	 * 查询商品是否存在
-	 * 
-	 * @param productName
-	 * @return
-	 */
-	boolean isExist(String productName);
 }
