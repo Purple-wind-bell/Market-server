@@ -1,62 +1,34 @@
 package cn.ys.service.impl;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import cn.ys.service.VerifyService;
+import cn.ys.vo.Code;
 
 public class VerifyServiceImpl implements VerifyService {
 	private static Map<String, Code> codeMap = new HashMap<String, Code>();
 
 	@Override
-	public void updateWebCode(String webCode, Timestamp currentTime, String visitor) {
-		String visitorID = visitor;
-		if (codeMap.containsKey(visitorID)) {
+	public void updateWebCode(String code, String visitorId) {
+		if (codeMap.containsKey(visitorId)) {
 			// 更新验证码
-			codeMap.replace(visitorID, new Code(webCode, currentTime));
+			codeMap.replace(visitorId, new Code(visitorId, code, new Timestamp(new Date().getTime())));
 		} else {
 			// 添加验证码
-			codeMap.put(visitorID, new Code(webCode, currentTime));
+			codeMap.put(visitorId, new Code(visitorId, code, new Timestamp(new Date().getTime())));
 		}
-
-		System.out.println(codeMap.get(visitorID).code);
 	}
 
 	@Override
-	public boolean isWebCodeEffective(String webCode, Timestamp currentTime, String visitor) {
-		Code code = codeMap.get(visitor);
-		if (code != null && webCode.equalsIgnoreCase(codeMap.get(visitor).code)) {
+	public boolean isWebCodeEffective(String code, String visitorId) {
+		Code c = codeMap.get(visitorId);
+		if (c != null && code.equalsIgnoreCase(codeMap.get(visitorId).getCode())) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	class Code {
-		String code;
-		Timestamp timestamp;
-
-		protected Code(String code, Timestamp timestamp) {
-			super();
-			this.code = code;
-			this.timestamp = timestamp;
-		}
-
-		public String getCode() {
-			return code;
-		}
-
-		public Timestamp getTimestamp() {
-			return timestamp;
-		}
-
-		public void setCode(String code) {
-			this.code = code;
-		}
-
-		public void setTimestamp(Timestamp timestamp) {
-			this.timestamp = timestamp;
-		}
-
-	}
 }

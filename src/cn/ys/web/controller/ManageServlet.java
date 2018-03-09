@@ -1,4 +1,4 @@
-package cn.ys.web.controller.manager;
+package cn.ys.web.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;

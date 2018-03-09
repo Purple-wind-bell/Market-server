@@ -84,7 +84,7 @@ public class LoginRegistServlet extends HttpServlet {
 		String code = request.getParameter("code");
 
 		System.out.println(code);
-		if (verify.isWebCodeEffective(code, new Timestamp(new Date().getTime()), visitorID)) {
+		if (verify.isWebCodeEffective(code, visitorID)) {
 			switch (lr.login(username, password)) {
 			case 1:
 				// 密码正确
@@ -137,7 +137,7 @@ public class LoginRegistServlet extends HttpServlet {
 		user.setPhone(request.getParameter("phone"));
 		String code = request.getParameter("code");
 
-		if (verify.isWebCodeEffective(code, new Timestamp(new Date().getTime()), visitorID)) {
+		if (verify.isWebCodeEffective(code, visitorID)) {
 			// 检测用户是否存在
 			switch (lr.registUser(user)) {
 			case 1:

@@ -16,6 +16,8 @@ import cn.ys.service.impl.VerifyServiceImpl;
 
 /**
  * Servlet implementation class CaptchServlet
+ * 
+ * 验证码
  */
 @WebServlet("/CaptchServlet")
 
@@ -26,35 +28,21 @@ public class CaptchServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html;charset=utf-8");
-		request.setCharacterEncoding("UTF-8");// 客户端网页我们控制为UTF-8
-		response.setCharacterEncoding("UTF-8");
 		ValidateCode vCode = new ValidateCode(100, 25, 4, 10);
 		String code = vCode.getCode();
 		request.getSession().setAttribute("code", code);
 
-		System.out.println(code);
-
-		// 生成随机id
+		// 查询访问者id
 		Cookie[] cookies = request.getCookies();
-		boolean flag = false;
 		String visitorID = null;
 		for (Cookie cookie : cookies) {
 			if (cookie.getValue().equals("visitorID")) {
-				flag = true;
 				visitorID = cookie.getValue();
 			}
 		}
-		if (!flag) {
-			visitorID = UUID.randomUUID().toString();
-			Cookie cookie = new Cookie("visitorID", visitorID);
-			cookie.setPath("/");
-			cookie.setMaxAge(3600);
-			response.addCookie(cookie);
-		}
 
 		// 添加验证码
-		verify.updateWebCode(code, new Timestamp(new Date().getTime()), visitorID);
+		verify.updateWebCode(code, visitorID);
 		try {
 			vCode.write(response.getOutputStream());
 		} catch (Exception e) {

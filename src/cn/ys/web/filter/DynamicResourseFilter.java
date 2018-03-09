@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 
-@WebFilter(filterName = "DynamicResourseFilter", urlPatterns = { "*.jsp", "/manage/*" })
+//@WebFilter(filterName = "DynamicResourseFilter", urlPatterns = { "*.jsp", "/manage/*" })
 
 public class DynamicResourseFilter extends AbstractFilter {
 

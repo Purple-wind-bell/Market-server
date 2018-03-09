@@ -1,11 +1,14 @@
 package cn.ys.web.filter;
 
 import java.io.IOException;
+import java.util.UUID;
+
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,7 +29,6 @@ public class SetCharsetEncoding extends AbstractFilter {
 		if (encoding == null) {
 			encoding = "UTF-8";
 		}
-		System.out.println("utf-8");
 
 		try {
 			request.setCharacterEncoding("UTF-8");

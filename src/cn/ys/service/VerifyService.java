@@ -1,28 +1,24 @@
 package cn.ys.service;
 
-import java.sql.Timestamp;
-
 public interface VerifyService {
 
 	/**
 	 * 为访问者添加验证码
 	 * 
-	 * @param webCode
+	 * @param code
 	 *            验证码
-	 * @param currentTime
-	 *            请求时间
-	 * @param visitor
-	 *            访问者信息
+	 * @param visitorId
+	 *            访问者id
+	 * @return visitorId-code
 	 */
-	void updateWebCode(String webCode, Timestamp currentTime, String visitor);
+	void updateWebCode(String code, String visitorId);
 
 	/**
 	 * 检查验证码是否有效
 	 * 
-	 * @param webCode
-	 * @param currentTime
-	 * @param visitor
+	 * @param code
+	 * @param visitorId
 	 * @return true-有效
 	 */
-	boolean isWebCodeEffective(String webCode, Timestamp currentTime, String visitor);
+	boolean isWebCodeEffective(String code, String visitorId);
 }

@@ -1,4 +1,4 @@
-package cn.ys.web.controller.user;
+package cn.ys.web.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -67,7 +67,7 @@ public class ModifyInfoServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String code = request.getParameter("code");
 
-		if (verify.isWebCodeEffective(code, new Timestamp(new Date().getTime()), visitorID)) {
+		if (verify.isWebCodeEffective(code, visitorID)) {
 
 			switch (modifyInfo.resetPassword(username, password)) {
 			case 1:
