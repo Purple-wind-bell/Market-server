@@ -2,11 +2,6 @@ package cn.ys.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -99,12 +94,18 @@ public class LoginRegistServlet extends HttpServlet {
 			switch (lr.login(username, password)) {
 			case 1:
 				// 密码正确
-				// 登录成功向HttpSession中放入一个标记记录用户信息
-				Cookie cookie = new Cookie("usernickname", userDao.getUserByName(username).getNickname());
-				cookie.setMaxAge(36000);
-				cookie.setPath("/");
-				response.addCookie(cookie);
-				out.write("登录成功，即将跳转主页");
+				// 登录成功向HttpSession中放标记记录用户信息
+				Cookie cookie1 = new Cookie("usernickname", userDao.getUserByName(username).getNickname());
+				cookie1.setMaxAge(36000);
+				cookie1.setPath("/");
+				Cookie cookie2 = new Cookie("username", username);
+				cookie2.setMaxAge(36000);
+				cookie2.setPath("/");
+
+				response.addCookie(cookie1);
+				response.addCookie(cookie2);
+				verify.bindUser(visitorID, username);
+				// out.write("登录成功，即将跳转主页");
 				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/index.html");
 				break;
 			case 2:
@@ -186,15 +187,22 @@ public class LoginRegistServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	private void logoutManage(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// 清楚存储用户信息的cookie
+		// 清除存储用户信息的cookie
 		PrintWriter out = response.getWriter();
 		Cookie[] cookies = request.getCookies();
+		String visitorID = null;
 		for (Cookie cookie : cookies) {
-			if ("usernickname".equals(cookie.getName())) {
+			if ("usernickname".equals(cookie.getName()) || "username".equals(cookie.getName())) {
 				cookie.setMaxAge(0);
 				cookie.setPath("/");
 			}
+			if ("visitorID".equalsIgnoreCase(cookie.getName())) {
+				visitorID = cookie.getValue();
+			}
 		}
+		// 清除token
+		verify.clearToken(visitorID);
+
 		out.write("注销成功！！！即将前往主页...");
 		response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/index.html");
 

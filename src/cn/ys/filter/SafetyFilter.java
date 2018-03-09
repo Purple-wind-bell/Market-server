@@ -24,12 +24,16 @@ public class SafetyFilter extends AbstractFilter {
 		Cookie[] cookies = request.getCookies();
 		boolean flag = false;
 		String visitorID = null;
-		for (Cookie cookie : cookies) {
-			if (cookie.getValue().equals("visitorID")) {
-				flag = true;
-				visitorID = cookie.getValue();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getValue().equals("visitorID")) {
+					flag = true;
+					visitorID = cookie.getValue();
+				}
 			}
 		}
+
+		// 设置cookie
 		if (!flag) {
 			visitorID = UUID.randomUUID().toString();
 			Cookie cookie = new Cookie("visitorID", visitorID);

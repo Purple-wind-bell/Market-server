@@ -49,6 +49,9 @@ public class ManageServlet extends HttpServlet {
 			case "delProductById":
 				delProductById(request, response);
 				break;
+			case "listAllProducts":
+				listProducts(request, response);
+				break;
 			default:
 				building(request, response);
 				break;
@@ -60,6 +63,14 @@ public class ManageServlet extends HttpServlet {
 
 	}
 
+	/**
+	 * 删除商品
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void delProductById(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String productId = request.getParameter("id");
@@ -82,6 +93,21 @@ public class ManageServlet extends HttpServlet {
 		s.addProduct(product);
 		request.setAttribute("message", "添加商品成功");
 		request.getRequestDispatcher("/manage/message.jsp").forward(request, response);
+	}
+
+	/**
+	 * 查询商品
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	private void listProducts(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		List<Product> list = s.findAllProduct();
+		request.setAttribute("listProducts", list);
+		request.getRequestDispatcher("/manage/showAllProducts.jsp").forward(request, response);
 	}
 
 	/**
