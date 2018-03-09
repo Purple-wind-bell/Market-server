@@ -2,9 +2,6 @@ package cn.ys.web.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
-import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -68,28 +65,27 @@ public class ModifyInfoServlet extends HttpServlet {
 		String code = request.getParameter("code");
 
 		if (verify.isWebCodeEffective(code, visitorID)) {
-
 			switch (modifyInfo.resetPassword(username, password)) {
 			case 1:
 				// 成功
 				out.write("重置成功，即将跳转主页");
 				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/index.html");
 				break;
-			case 2:
-				out.write("验证码失效，即将跳转重置页");
-				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/UserManage/ResetPassword.html");
+			case 2: // 用户不存在
+				out.write("用户不存在！！！即将前往注册页");
+				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/regist.html");
 				break;
-			case 3: // 用户不存在
-				out.write("用户不存在！！！即将前往主页");
-				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/login.html");
+			case 3:
+				out.write("失败！！！即将前往密码重置页");
+				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/UserManage/ResetPassword.html");
 				break;
 			default:
 				out.write("未知错误！！！即将前往主页");
-				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/login.html");
+				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/index.html");
 				break;
 			}
 		} else {
-			out.write("验证码错误！！！即将前往密码重置页");
+			out.write("验证码失效，即将跳转重置页");
 			response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/UserManage/ResetPassword.html");
 		}
 		out.close();

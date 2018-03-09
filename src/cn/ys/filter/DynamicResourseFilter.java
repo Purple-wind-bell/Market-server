@@ -1,4 +1,4 @@
-package cn.ys.web.filter;
+package cn.ys.filter;
 
 import java.io.IOException;
 

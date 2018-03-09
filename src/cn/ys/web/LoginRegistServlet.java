@@ -83,13 +83,12 @@ public class LoginRegistServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String code = request.getParameter("code");
 
-		System.out.println(code);
 		if (verify.isWebCodeEffective(code, visitorID)) {
 			switch (lr.login(username, password)) {
 			case 1:
 				// 密码正确
 				// 登录成功向HttpSession中放入一个标记记录用户信息
-				Cookie cookie = new Cookie("usernickname", userDao.getUserByID(username).getNickname());
+				Cookie cookie = new Cookie("usernickname", userDao.getUserByName(username).getNickname());
 				cookie.setMaxAge(36000);
 				cookie.setPath("/");
 				response.addCookie(cookie);
