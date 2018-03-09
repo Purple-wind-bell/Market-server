@@ -72,6 +72,8 @@ nav div div ul li ul {
 						<li class="col-sm-3"><a href="#" target="_blank">购物车</a></li>
 						<li class="col-sm-3"><a href="#" target="_blank">个人设置</a></li>
 						<li class="col-sm-3"><a
+							href="${pageContext.request.contextPath }/manage" target="_blank">后台管理</a></li>
+						<li class="col-sm-3"><a
 							href="${pageContext.request.contextPath }/user/LoginRegistServlet?op=logout">注销</a></li>
 						<li class="col-sm-3"><a href="#" target="_blank">帮助</a></li>
 					</ul></li>

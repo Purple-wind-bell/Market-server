@@ -1,7 +1,6 @@
 package cn.ys.web.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -55,10 +54,10 @@ public class ModifyInfoServlet extends HttpServlet {
 	 * @param request
 	 * @param response
 	 * @throws IOException
+	 * @throws ServletException
 	 */
 	private void resetPassword(HttpServletRequest request, HttpServletResponse response, String visitorID)
-			throws IOException {
-		PrintWriter out = response.getWriter();
+			throws IOException, ServletException {
 		// 读取信息
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -68,27 +67,31 @@ public class ModifyInfoServlet extends HttpServlet {
 			switch (modifyInfo.resetPassword(username, password)) {
 			case 1:
 				// 成功
-				out.write("重置成功，即将跳转主页");
+				request.setAttribute("message", "重置成功，即将跳转主页");
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
 				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/index.html");
 				break;
 			case 2: // 用户不存在
-				out.write("用户不存在！！！即将前往注册页");
+				request.setAttribute("message", "用户不存在！！！即将前往注册页");
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
 				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/regist.html");
 				break;
 			case 3:
-				out.write("失败！！！即将前往密码重置页");
+				request.setAttribute("message", "失败！！！即将前往密码重置页");
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
 				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/UserManage/ResetPassword.html");
 				break;
 			default:
-				out.write("未知错误！！！即将前往主页");
+				request.setAttribute("message", "未知错误！！！即将前往主页");
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
 				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/index.html");
 				break;
 			}
 		} else {
-			out.write("验证码失效，即将跳转重置页");
+			request.setAttribute("message", "验证码失效，即将跳转重置页");
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/UserManage/ResetPassword.html");
 		}
-		out.close();
 	}
 
 }
