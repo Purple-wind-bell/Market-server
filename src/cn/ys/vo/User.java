@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 @SuppressWarnings("serial")
 public class User implements Serializable {
+	/** id */
+	String id;
 	/** 用户名 */
 	private String username;
 	/** 昵称 */
@@ -25,14 +27,22 @@ public class User implements Serializable {
 		super();
 	}
 
-	public User(String username, String nickname, String password, String email, String phone) {
+	public User(String id, String username, String nickname, String password, String email, String phone) {
 		super();
+		this.id = id;
 		this.username = username;
 		this.nickname = nickname;
 		this.password = password;
 		this.email = email;
 		this.phone = phone;
+	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getUsername() {

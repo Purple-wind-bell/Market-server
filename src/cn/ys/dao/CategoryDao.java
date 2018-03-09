@@ -6,8 +6,19 @@ import cn.ys.vo.Category;
 
 public interface CategoryDao {
 
+	/**
+	 * 保存
+	 * 
+	 * @param category
+	 */
 	void save(Category category);
 
+	/**
+	 * 查询
+	 * 
+	 * @param categoryName
+	 * @return
+	 */
 	boolean findByName(String categoryName);
 
 	/**
