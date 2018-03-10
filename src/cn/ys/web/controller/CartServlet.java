@@ -27,7 +27,6 @@ import cn.ys.web.bean.CartBean;
 @WebServlet("/shopping/CartServlet")
 public class CartServlet extends HttpServlet {
 	private CartService cService = new CartServiceImpl();
-	private VerifyService verify = new VerifyServiceImpl();
 	private ProductDao pDao = new ProductDaoImpl();
 
 	@Override
@@ -73,27 +72,19 @@ public class CartServlet extends HttpServlet {
 	private void delAllCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 获取username
-		String username = request.getParameter("username");
-		if (username == null) {
-			Cookie[] cookies = request.getCookies();
-			for (Cookie cookie : cookies) {
-				if ("visitorID".equals(cookie.getName())) {
-					String visitorID = cookie.getValue();
-					username = verify.queryBindUsername(visitorID);
-				}
+		String username = null;
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if ("username".equals(cookie.getName())) {
+				username = cookie.getValue();
 			}
-			System.out.println("username is null,从cookie中获取username值");
 		}
 
 		// 更新购物车
-		if (username != null) {
-			cService.delAllCarts(username);
-			// 跳转至购物车
-			request.getRequestDispatcher("/CartServlet?op=listCarts").forward(request, response);
-		} else {
-			other(request, response);
-		}
-
+		cService.delAllCarts(username);
+		// 跳转至提示页面
+		request.setAttribute("message", "购物车已清空！！！");
+		request.getRequestDispatcher("/shopping/message.jsp").forward(request, response);
 	}
 
 	/**
@@ -107,21 +98,17 @@ public class CartServlet extends HttpServlet {
 	private void delCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 获取username
-		String username = request.getParameter("username");
-		if (username == null) {
-			Cookie[] cookies = request.getCookies();
-			for (Cookie cookie : cookies) {
-				if ("visitorID".equals(cookie.getName())) {
-					String visitorID = cookie.getValue();
-					username = verify.queryBindUsername(visitorID);
-				}
+		String username = null;
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if ("username".equals(cookie.getName())) {
+				username = cookie.getValue();
 			}
-			System.out.println("username is null,从cookie中获取username值");
 		}
 		String productId = request.getParameter("productId");
 
 		// 更新购物车
-		if (username != null && productId != null) {
+		if (productId != null) {
 			cService.delCart(new Cart(username, productId, 1));
 			// 跳转至购物车
 			request.getRequestDispatcher("/CartServlet?op=listCarts").forward(request, response);
@@ -159,12 +146,12 @@ public class CartServlet extends HttpServlet {
 	 */
 	private void addToCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Cookie[] cookies = request.getCookies();
+		// 获取username
 		String username = null;
+		Cookie[] cookies = request.getCookies();
 		for (Cookie cookie : cookies) {
-			if ("visitorID".equals(cookie.getName())) {
-				String visitorID = cookie.getValue();
-				username = verify.queryBindUsername(visitorID);
+			if ("username".equals(cookie.getName())) {
+				username = cookie.getValue();
 			}
 		}
 		String productId = request.getParameter("productId");
@@ -178,7 +165,8 @@ public class CartServlet extends HttpServlet {
 			cart.setQuantity(Integer.valueOf(quantity));
 			cService.addCart(cart);
 			// 跳转至购物车
-			request.getRequestDispatcher("/CartServlet?op=listCarts").forward(request, response);
+			request.setAttribute("message", "成功添加到购物车！");
+			request.getRequestDispatcher("/shopping/message.jsp").forward(request, response);
 		} else {
 			other(request, response);
 		}
@@ -194,12 +182,12 @@ public class CartServlet extends HttpServlet {
 	 */
 	private void listCarts(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// 获取username
 		String username = null;
 		Cookie[] cookies = request.getCookies();
 		for (Cookie cookie : cookies) {
-			if ("visitorID".equals(cookie.getName())) {
-				String visitorID = cookie.getValue();
-				username = verify.queryBindUsername(visitorID);
+			if ("username".equals(cookie.getName())) {
+				username = cookie.getValue();
 			}
 		}
 
@@ -235,19 +223,15 @@ public class CartServlet extends HttpServlet {
 	 */
 	private void editCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		// 获取username
-		String username = request.getParameter("username");
-		if (username == null) {
-			Cookie[] cookies = request.getCookies();
-			for (Cookie cookie : cookies) {
-				if ("visitorID".equals(cookie.getName())) {
-					String visitorID = cookie.getValue();
-					username = verify.queryBindUsername(visitorID);
-				}
+		String username = null;
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if ("username".equals(cookie.getName())) {
+				username = cookie.getValue();
 			}
-			System.out.println("username is null,从cookie中获取username值");
 		}
+
 		String productId = request.getParameter("productId");
 		String quantity = request.getParameter("quantity");
 

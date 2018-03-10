@@ -17,9 +17,9 @@ public class ProductDaoImpl implements ProductDao {
 		int row = -1;
 		try {
 			row = qr.update(
-					"insert into product (name, ownername, price, path, filename, description) values(?,?,?,?,?,?)",
+					"insert into product (name, ownername, price, path, filename, description, category) values(?,?,?,?,?,?,?)",
 					product.getName(), product.getOwnername(), product.getPrice(), product.getPath(),
-					product.getFilename(), product.getDescription());
+					product.getFilename(), product.getDescription(), product.getCategory().getId());
 		} catch (SQLException e) {
 			throw new RuntimeException();
 		}
@@ -48,8 +48,9 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public void updateProduct(Integer proId, Product product) {
 		try {
-			qr.update("update product set name = ?, price = ?, description = ? where id = ?", product.getName(),
-					product.getPrice(), product.getDescription(), proId);
+			qr.update("update product set name = ?, price = ?, description = ?, category = ? where id = ?",
+					product.getName(), product.getPrice(), product.getDescription(), product.getCategory().getId(),
+					proId);
 		} catch (SQLException e) {
 			throw new RuntimeException();
 		}

@@ -38,7 +38,11 @@ public class LoginBusinessFilter extends AbstractFilter {
 		}
 
 		try {
-			if (visitorID != null && username != null && verify.queryBindUsername(visitorID) == username) {
+			System.out.println("username:" + username);
+			System.out.println("uuid:" + visitorID);
+			System.out.println("token-uuid:" + verify.queryUUIDByUsername(username).trim());
+			System.out.println("token-id:" + verify.queryBindUsername(visitorID));
+			if (username != null && visitorID.equals(verify.queryUUIDByUsername(username).trim())) {
 				// 已登录
 				chain.doFilter(request, response);
 			} else {

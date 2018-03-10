@@ -2,6 +2,8 @@ package cn.ys.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.UUID;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -139,6 +141,7 @@ public class LoginRegistServlet extends HttpServlet {
 			throws IOException, ServletException {
 		// 读取信息
 		User user = new User();
+		user.setId(UUID.randomUUID().toString());
 		user.setUsername(request.getParameter("username"));
 		user.setPassword(request.getParameter("password"));
 		user.setEmail(request.getParameter("email"));

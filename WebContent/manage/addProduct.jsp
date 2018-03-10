@@ -29,7 +29,7 @@
 
 
 	<form
-		action="${pageContext.request.contextPath }manage/ManageServlet?op=addProduct"
+		action="${pageContext.request.contextPath }/manage/ManageServlet?op=addProduct"
 		method="post">
 		<div class="form-group">
 			<label for="name" class="col-sm-2 control-label">商品名称:</label>

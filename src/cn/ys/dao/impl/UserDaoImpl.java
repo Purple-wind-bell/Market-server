@@ -23,7 +23,8 @@ public class UserDaoImpl implements UserDao {
 			qr.update("insert into user (id,username,nickname,password,email,phone) values(?,?,?,?,?,?)", user.getId(),
 					user.getUsername(), user.getNickname(), user.getPassword(), user.getEmail(), user.getPhone());
 		} catch (SQLException e) {
-			throw new RuntimeException();
+//			throw new RuntimeException();
+			e.printStackTrace();
 		}
 	}
 
@@ -57,9 +58,10 @@ public class UserDaoImpl implements UserDao {
 	public User getUserByName(String username) {
 		User user = null;
 		try {
-			user = qr.query("select * from product where username = ?", new BeanHandler<User>(User.class), username);
+			user = qr.query("select * from user where username = ?", new BeanHandler<User>(User.class), username);
 		} catch (SQLException e) {
-			throw new RuntimeException("ss");
+//			throw new RuntimeException("ss");
+			e.printStackTrace();
 		}
 		return user;
 	}

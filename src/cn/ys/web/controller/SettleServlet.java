@@ -40,11 +40,13 @@ public class SettleServlet extends HttpServlet {
 	 * 
 	 * @param request
 	 * @param response
-	 * @throws IOException 
-	 * @throws ServletException 
+	 * @throws IOException
+	 * @throws ServletException
 	 */
-	private void genOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		building(request, response);
+	private void genOrder(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setAttribute("message", "结算！！！");
+		request.getRequestDispatcher("/shopping/settle.jsp").forward(request, response);
 	}
 
 	/**

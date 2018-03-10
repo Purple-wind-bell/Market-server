@@ -10,6 +10,10 @@ public class Token {
 	String username;
 	String uuid;
 
+	public Token() {
+		super();
+	}
+
 	public Token(String username, String uuid) {
 		super();
 		this.username = username;

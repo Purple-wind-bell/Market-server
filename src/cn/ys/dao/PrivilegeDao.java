@@ -8,7 +8,7 @@ import cn.ys.vo.Business;
  * @author Administrator
  *
  */
-public interface BusinessDao {
+public interface PrivilegeDao {
 
 	/**
 	 * 添加商家

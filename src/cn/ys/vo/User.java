@@ -11,7 +11,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class User implements Serializable {
 	/** id */
-	String id;
+	private String id;
 	/** 用户名 */
 	private String username;
 	/** 昵称 */
