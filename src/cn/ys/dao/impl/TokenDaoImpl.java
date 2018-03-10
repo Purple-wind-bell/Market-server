@@ -25,7 +25,7 @@ public class TokenDaoImpl implements TokenDao {
 	public boolean delToken(String uuid) {
 		int row = -1;
 		try {
-			row = qr.update("delete from user where uuid = ?", uuid);
+			row = qr.update("delete from token where uuid = ?", uuid);
 		} catch (SQLException e) {
 			throw new RuntimeException();
 		}
