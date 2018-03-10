@@ -61,30 +61,24 @@ nav div div ul li ul {
 
 			<ul class="nav navbar-nav navbar-right">
 				<li>
-					<!--用户名显示  --> <%-- 					<%
- 	Cookie[] cookies = request.getCookies(); //从request中获的Cookie对象的集合
- 	String username = null;
- 	if (cookies != null) {
- 		for (int i = 0; i < cookies.length; i++) { //遍历cookie对象集合
- 			if (cookies[i].getName().equals("username")) {//如果cookie对象的名称是mrCookie
- 				username = cookies[i].getValue();
- 			}
- 		}
- 	}
+					<%
+						Cookie[] cookies = request.getCookies(); //从request中获的Cookie对象的集合
+						String username = null;
+						if (cookies != null) {
+							for (int i = 0; i < cookies.length; i++) { //遍历cookie对象集合
+								if (cookies[i].getName().equals("username")) {//如果cookie对象的名称是mrCookie
+									username = cookies[i].getValue();
+								}
+							}
+						}
 
- 	if (username == null) {//没有登录
- %><a href="${pageContext.request.contextPath }/login.html"
+						if (username == null) {//没有登录
+					%><a href="${pageContext.request.contextPath }/login.html"
 					target="_blank">登录</a> <%
  	} else {//已经登录
- %> 欢迎[<b><%=username%></b>] <%
+ %> 欢迎,<b><%=username%></b><%
  	}
- %>  --%> 
- <c:if test="${cookie['username'].value eq null}">
-						<a href="${pageContext.request.contextPath }/login.html"
-							target="_blank">登录</a>
-					</c:if> <c:if test="${cookie['username'].value eq null} ">
-						${cookie['username'].value }
-					</c:if>
+ %>
 				</li>
 				<li><a href="${pageContext.request.contextPath }/regist.html"
 					target="_blank">注册</a></li>
@@ -103,7 +97,8 @@ nav div div ul li ul {
 						<li class="col-sm-3"><a
 							href="${pageContext.request.contextPath }/manage" target="_blank">后台管理</a></li>
 						<li class="col-sm-3"><a
-							href="${pageContext.request.contextPath }/user/LoginRegistServlet?op=logout">注销</a></li>
+							href="${pageContext.request.contextPath }/user/LoginRegistServlet?op=logout"
+							target="_blank">注销</a></li>
 						<li class="col-sm-3"><a href="#" target="_blank">帮助</a></li>
 					</ul></li>
 				<li><a href="mailto:market@qq.com" target="_blank">联系我们</a></li>

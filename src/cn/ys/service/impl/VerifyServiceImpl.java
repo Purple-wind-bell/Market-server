@@ -49,7 +49,8 @@ public class VerifyServiceImpl implements VerifyService {
 	@Override
 	public void bindUser(String visitorID, String username) {
 		Token token = new Token(username, visitorID);
-		tokenMap.put(visitorID, token);
+		clearToken(visitorID);
+		// tokenMap.put(visitorID, token);
 		tdao.save(token);
 	}
 
