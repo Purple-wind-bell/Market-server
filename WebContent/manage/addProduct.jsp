@@ -30,7 +30,7 @@
 
 	<form
 		action="${pageContext.request.contextPath }/manage/ManageServlet?op=addProduct"
-		method="post">
+		enctype="multipart/form-data" method="post">
 		<div class="form-group">
 			<label for="name" class="col-sm-2 control-label">商品名称:</label>
 			<div class="col-sm-10">
@@ -67,7 +67,7 @@
 			<label for="file" class="col-sm-2 control-label">图片:</label>
 			<div class="col-sm-10">
 				<input type="file" class="form-control input-text-middle"
-					name="file" id="file">
+					name="image" id="image" placeholder="图片">
 			</div>
 		</div>
 

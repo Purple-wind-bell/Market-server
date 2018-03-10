@@ -33,31 +33,32 @@
 		<c:if test="${empty listCategories }">
 			<h4>无数据，添加数据</h4>
 		</c:if>
-		<c:if test="${!empty listCategories }"></c:if>
-		<table class="table table-hover">
-			<tr>
-				<td>序号</td>
-				<td>商品名称</td>
-				<td>价格</td>
-				<td>描述</td>
-				<td>操作</td>
-			</tr>
-			<tr>
-				<c:forEach items="${listCategories }" var="cs" varStatus="vs">
-					<tr>
-						<td>${vs.count }</td>
-						<td>${cs.name }</td>
-						<td>${cs.price }</td>
-						<td>${cs.description }</td>
-						<td><a class="btn btn-warning"
-							href="${pageContext.request.contextPath }/manage/ManageServlet?op=delProductById&id=${cs.name }">删除</a>
-							<a class="btn btn-info"
-							href="${pageContext.request.contextPath }/manage/ManageServlet?op=updateProductById&id=${cs.name }">修改</a>
-						</td>
-					</tr>
-				</c:forEach>
-			</tr>
-		</table>
+		<c:if test="${!empty listCategories }">
+			<table class="table table-hover">
+				<tr>
+					<td>序号</td>
+					<td>商品名称</td>
+					<td>价格</td>
+					<td>描述</td>
+					<td>操作</td>
+				</tr>
+				<tr>
+					<c:forEach items="${listCategories }" var="cs" varStatus="vs">
+						<tr>
+							<td>${vs.count }</td>
+							<td>${cs.name }</td>
+							<td>${cs.price }</td>
+							<td>${cs.description }</td>
+							<td><a class="btn btn-warning"
+								href="${pageContext.request.contextPath }/manage/ManageServlet?op=delProductById&id=${cs.name }">删除</a>
+								<a class="btn btn-info"
+								href="${pageContext.request.contextPath }/manage/ManageServlet?op=updateProductById&id=${cs.name }">修改</a>
+							</td>
+						</tr>
+					</c:forEach>
+				</tr>
+			</table>
+		</c:if>
 	</div>
 </body>
 
