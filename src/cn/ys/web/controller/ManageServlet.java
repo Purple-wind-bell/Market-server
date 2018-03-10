@@ -36,7 +36,7 @@ import cn.ys.vo.Product;
 @WebServlet("/manage/ManageServlet")
 public class ManageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	BusinessService s = new BusinessServiceImpl();
+	private BusinessService s = new BusinessServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -69,9 +69,6 @@ public class ManageServlet extends HttpServlet {
 				break;
 			case "delProductById":
 				delProductById(request, response);
-				break;
-			case "listAllProducts":
-				listProducts(request, response);
 				break;
 			default:
 				building(request, response);
@@ -121,32 +118,16 @@ public class ManageServlet extends HttpServlet {
 		for (FileItem item : items) {
 			if (item.isFormField()) {
 				// 普通字段
-				processFormField(item, product);
+				product = processFormField(item, product);
 			} else {
 				// 上传字段
-				processUploadFormField(item, product);
+				product = processUploadFormField(item, product);
 			}
 		}
 		// 保存数据
 		s.addProduct(product);
 		request.setAttribute("message", "添加商品成功");
 		request.getRequestDispatcher("/manage/message.jsp").forward(request, response);
-	}
-
-	/**
-	 * 查询商品
-	 * 
-	 * @param request
-	 * @param response
-	 * @throws IOException
-	 * @throws ServletException
-	 */
-	private void listProducts(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// List<Product> list = s.findAllProduct();
-		// request.setAttribute("listProducts", list);
-		// request.getRequestDispatcher("/manage/showAllProducts.jsp").forward(request,
-		// response);
 	}
 
 	/**
@@ -284,7 +265,7 @@ public class ManageServlet extends HttpServlet {
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
-	private void processFormField(FileItem item, Product product)
+	private Product processFormField(FileItem item, Product product)
 			throws UnsupportedEncodingException, IllegalAccessException, InvocationTargetException {
 		// 表单name表单的输入域的name和book的属性名保持一致
 		String fieldName = item.getFieldName();
@@ -292,14 +273,16 @@ public class ManageServlet extends HttpServlet {
 		String fieldValue = item.getString("UTF-8");
 
 		// 单独关联分类
-		if ("categoryId".equals(fieldName)) {
+		if ("category".equals(fieldName)) {
 			// 分类 关联分类的信息
 			Category category = s.findCategoryById(Integer.parseInt(fieldValue));
+			System.out.println("category:" + (category == null));
 			product.setCategory(category);
 		} else {
 			// 其他属性
 			BeanUtils.setProperty(product, fieldName, fieldValue);// 相当于调用队形的setXXX
 		}
+		return product;
 	}
 
 	/**
@@ -309,7 +292,7 @@ public class ManageServlet extends HttpServlet {
 	 * @param product
 	 * @throws Exception
 	 */
-	private void processUploadFormField(FileItem item, Product product) throws Exception {
+	private Product processUploadFormField(FileItem item, Product product) throws Exception {
 		// 得到书籍存放的路径 根目录下/images
 		// C:\apache-tomcat-9\webapps\bookstore\images \1\2.....jpg
 		String storeDirection = getServletContext().getRealPath("/images");
@@ -321,6 +304,7 @@ public class ManageServlet extends HttpServlet {
 		product.setFilename(fileName);
 		item.write(new File(storeDirection + File.separator + childDirection, fileName));
 
+		return product;
 	}
 
 	@Override

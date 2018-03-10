@@ -1,9 +1,11 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="/manage/header.jsp"%>
+
 <html>
 
 <head>
-<meta charset="utf-8">
-<title>购物首页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://cdn.bootcss.com/jquery/3.3.1/core.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.slim.min.js"></script>
@@ -19,32 +21,47 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/base-web.css" />
+<title>商品列表</title>
 </head>
 
 <body>
-	<header>
-		<!--导入导航栏-->
-		<embed type="text/html" src="../base-web/head.jsp"></embed>
-	</header>
+
+
 
 	<div class="container-fluid text-center">
 		<div class="row">
-			<!-- Optional: clear the XS cols if their content doesn't match in height -->
 			<div class="col-sm-4 col-md-3 cos-lg-2">
-				<img src="../img/show-img/lb01.jpg" />
+				<img src="../img/show-img/logo.jpg" />
 			</div>
-			<div class="col-sm-4 col-md-3 cos-lg-2">
-				<img src="../img/show-img/lb02.jpg" />
-			</div>
-			<div class="col-sm-4 col-md-3 cos-lg-2">
-				<img src="../img/show-img/lb03.jpg" />
-			</div>
-			<div class="col-sm-4 col-md-3 cos-lg-2">
-				<img src="../img/show-img/lb03.jpg" />
-			</div>
+
+			<c:if test="${empty listProducts }">
+				<h4>没有商品信息</h4>
+				<div class="col-sm-6 col-md-4 cos-lg-3">
+					<img src="../img/show-img/lb01.jpg" />
+				</div>
+			</c:if>
+			<c:if test="${!empty listProducts }">
+				<c:forEach items="${listProducts }" var="cs" varStatus="vs">
+					<div class="col-sm-4 col-md-3 cos-lg-2">
+						<dl>
+							<dt>${cs.name }</dt>
+							<dd>
+								<img src="../img/show-img/logo.jpg" />
+							</dd>
+							<dd>价格：${cs.price }</dd>
+
+							<dd>
+								<a class="btn btn-sussess"
+									href="${pageContext.request.contextPath }/shopping/CartServlet?op=addToCart&productId=${cs.id }&quantity=1"
+									target="_blank">添加购物车</a>
+							</dd>
+						</dl>
+					</div>
+				</c:forEach>
+			</c:if>
 		</div>
 	</div>
+
 
 	<footer>
 		<!--导入网页底部-->

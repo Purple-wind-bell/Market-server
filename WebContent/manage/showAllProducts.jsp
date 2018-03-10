@@ -30,10 +30,10 @@
 			<h3>商品列表</h3>
 		</div>
 
-		<c:if test="${empty listCategories }">
+		<c:if test="${empty listProducts }">
 			<h4>无数据，添加数据</h4>
 		</c:if>
-		<c:if test="${!empty listCategories }">
+		<c:if test="${!empty listProducts }">
 			<table class="table table-hover">
 				<tr>
 					<td>序号</td>
@@ -43,7 +43,7 @@
 					<td>操作</td>
 				</tr>
 				<tr>
-					<c:forEach items="${listCategories }" var="cs" varStatus="vs">
+					<c:forEach items="${listProducts }" var="cs" varStatus="vs">
 						<tr>
 							<td>${vs.count }</td>
 							<td>${cs.name }</td>
