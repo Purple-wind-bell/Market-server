@@ -1,6 +1,7 @@
 package cn.ys.web.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +19,7 @@ import cn.ys.service.impl.CartServiceImpl;
 import cn.ys.service.impl.VerifyServiceImpl;
 import cn.ys.vo.Cart;
 import cn.ys.vo.Product;
+import cn.ys.web.bean.CartBean;
 
 /**
  * Servlet implementation class CartServlet
@@ -44,6 +46,12 @@ public class CartServlet extends HttpServlet {
 			case "editCart":
 				editCart(request, response);
 				break;
+			case "delCart":
+				delCart(request, response);
+				break;
+			case "delAllCart":
+				delAllCart(request, response);
+				break;
 			default:
 				other(request, response);
 				break;
@@ -53,6 +61,74 @@ public class CartServlet extends HttpServlet {
 			request.getRequestDispatcher("/shopping/message.jsp").forward(request, response);
 		}
 
+	}
+
+	/**
+	 * 删除全部购物车商品
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	private void delAllCart(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 获取username
+		String username = request.getParameter("username");
+		if (username == null) {
+			Cookie[] cookies = request.getCookies();
+			for (Cookie cookie : cookies) {
+				if ("visitorID".equals(cookie.getName())) {
+					String visitorID = cookie.getValue();
+					username = verify.queryBindUsername(visitorID);
+				}
+			}
+			System.out.println("username is null,从cookie中获取username值");
+		}
+
+		// 更新购物车
+		if (username != null) {
+			cService.delAllCarts(username);
+			// 跳转至购物车
+			request.getRequestDispatcher("/CartServlet?op=listCarts").forward(request, response);
+		} else {
+			other(request, response);
+		}
+
+	}
+
+	/**
+	 * 删除商品
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	private void delCart(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 获取username
+		String username = request.getParameter("username");
+		if (username == null) {
+			Cookie[] cookies = request.getCookies();
+			for (Cookie cookie : cookies) {
+				if ("visitorID".equals(cookie.getName())) {
+					String visitorID = cookie.getValue();
+					username = verify.queryBindUsername(visitorID);
+				}
+			}
+			System.out.println("username is null,从cookie中获取username值");
+		}
+		String productId = request.getParameter("productId");
+
+		// 更新购物车
+		if (username != null && productId != null) {
+			cService.delCart(new Cart(username, productId, 1));
+			// 跳转至购物车
+			request.getRequestDispatcher("/CartServlet?op=listCarts").forward(request, response);
+		} else {
+			other(request, response);
+		}
 	}
 
 	@Override
@@ -128,19 +204,26 @@ public class CartServlet extends HttpServlet {
 			}
 		}
 
-		List<Cart> carts = cService.findCartByUsername(username);
-		List<Product> products = new ArrayList<Product>();
-		Iterator<Cart> iterator = carts.iterator();
+		List<Cart> list = cService.findCartByUsername(username);
+		List<CartBean> carts = new ArrayList<CartBean>();
+		Iterator<Cart> iterator = list.iterator();
 		while (iterator.hasNext()) {
+			// 查询购物车的商品信息并封装
 			Cart cart = (Cart) iterator.next();
 			Integer productId = Integer.valueOf(cart.getProductId());
-			products.add(pDao.findById(productId));
+			// 数量
+			Integer quantity = cart.getQuantity();
+			// 商品对象
+			Product product = pDao.findById(productId);
+			// 小计
+			Float subprice = quantity * product.getPrice();
+			// 封装
+			carts.add(new CartBean(product, quantity, subprice));
 		}
 		request.setAttribute("carts", carts);
-		request.setAttribute("products", products);
 
 		// 跳转至购物车jsp
-		request.getRequestDispatcher("/shopping/carts.jsp").forward(request, response);
+		request.getRequestDispatcher("/shopping/cart.jsp").forward(request, response);
 	}
 
 	/**

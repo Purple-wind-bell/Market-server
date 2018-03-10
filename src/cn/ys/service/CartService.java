@@ -39,4 +39,11 @@ public interface CartService {
 	 * @param carts
 	 */
 	void editCarts(Cart... carts);
+
+	/**
+	 * 清空购物车
+	 * 
+	 * @param username
+	 */
+	void delAllCarts(String username);
 }

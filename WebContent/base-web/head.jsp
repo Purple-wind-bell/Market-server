@@ -59,8 +59,15 @@ nav div div ul li ul {
 			</form>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="${pageContext.request.contextPath }/login.html"
-					target="_blank">${cookie.usernickname.value } 登录</a></li>
+				<li>
+					<!--用户名显示  -->
+					 <c:if test="${empty cookie.username.value }">
+						<a href="${pageContext.request.contextPath }/login.html"
+							target="_blank"></a>
+					</c:if> <c:if test="${!empty cookie.username.value }">
+						${cookie.username.value }
+					</c:if>
+				</li>
 				<li><a href="${pageContext.request.contextPath }/regist.html"
 					target="_blank">注册</a></li>
 
@@ -69,8 +76,10 @@ nav div div ul li ul {
 					aria-expanded="false">用户服务 <span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li class="col-sm-3"><a href="#" target="_blank">消息</a></li>
-						<li class="col-sm-3"><a href="#" target="_blank">购物车</a></li>
-						<li class="col-sm-3"><a href="shopping/usermanage.html"
+						<li class="col-sm-3"><a
+							href="${pageContext.request.contextPath }/shopping/CartServlet?op=listCarts"
+							target="_blank">购物车</a></li>
+						<li class="col-sm-3"><a href="usermanage/usermanage.html"
 							target="_blank">个人设置</a></li>
 						<li class="col-sm-3"><a
 							href="${pageContext.request.contextPath }/manage" target="_blank">后台管理</a></li>

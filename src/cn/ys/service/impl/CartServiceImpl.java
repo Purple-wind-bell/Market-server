@@ -51,4 +51,9 @@ public class CartServiceImpl implements CartService {
 		}
 	}
 
+	@Override
+	public void delAllCarts(String username) {
+		cDao.delAllCarts(username);
+	}
+
 }

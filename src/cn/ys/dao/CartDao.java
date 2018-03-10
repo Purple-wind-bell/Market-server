@@ -19,6 +19,13 @@ public interface CartDao {
 	void save(Cart cart);
 
 	/**
+	 * 清空指定用户的购物车
+	 * 
+	 * @param username
+	 */
+	void delAllCarts(String username);
+
+	/**
 	 * 删除
 	 * 
 	 * @param cart
@@ -42,6 +49,7 @@ public interface CartDao {
 
 	/**
 	 * 查询指定用户的购物车中的制定商品
+	 * 
 	 * @param username
 	 * @param productId
 	 * @return null-没有该商品；cart-返回指定商品在购物车中的数据

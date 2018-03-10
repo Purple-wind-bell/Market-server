@@ -28,16 +28,16 @@
 	<div class="jumbotron">
 		<div class="container">
 			<p class="text-center">
-				<img src="img/pcdongtai_b60a4b2d8e0d0d6392de47d4cec6fdc3.gif" />
+				<img src="../img/pcdongtai_b60a4b2d8e0d0d6392de47d4cec6fdc3.gif" />
 			</p>
 			<p class="text-center">
 			<h3>${message }</h3>
 			</p>
 			<p>
 				<a class="btn btn-primary btn-lg"
-					href="shopping/shopping-index.html" role="button" target="_self">购物首页</a>
+					href="${pageContext.request.contextPath }/shopping/shopping-index.html" role="button" target="_self">购物首页</a>
 				<a class="btn btn-primary btn-lg"
-					href="shopping/CartServlet?op=listCarts" role="button"
+					href="${pageContext.request.contextPath }/shopping/CartServlet?op=listCarts" role="button"
 					target="_self">购物车</a> <a class="btn btn-primary btn-lg"
 					href="http://www.baidu.com" role="button" target="_self">了解更多</a>
 			</p>

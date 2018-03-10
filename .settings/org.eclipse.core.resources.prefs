@@ -1,2 +1,4 @@
 eclipse.preferences.version=1
-encoding//WebContent/manage/index.html=UTF-8
+encoding//WebContent/manage/addCategory.jsp=UTF-8
+encoding//WebContent/manage/addProduct.jsp=UTF-8
+encoding//WebContent/manage/index.jsp=UTF-8

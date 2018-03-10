@@ -47,7 +47,7 @@ nav div div ul li ul {
 			</button>
 			<a class="navbar-brand"
 				href="${pageContext.request.contextPath }/manage/index.jsp"
-				target="_blank">后台管理首页</a>
+				target="_self">后台管理首页</a>
 		</div>
 
 		<div class="collapse navbar-collapse"

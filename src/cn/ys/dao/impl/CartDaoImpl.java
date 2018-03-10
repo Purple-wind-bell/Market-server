@@ -25,7 +25,7 @@ public class CartDaoImpl implements CartDao {
 	@Override
 	public void delCart(Cart cart) {
 		try {
-			qr.update("delete from user where username = ? and productId = ?", cart.getUsername(), cart.getProductId());
+			qr.update("delete from cart where username = ? and productId = ?", cart.getUsername(), cart.getProductId());
 		} catch (SQLException e) {
 			throw new RuntimeException();
 		}
@@ -56,6 +56,15 @@ public class CartDaoImpl implements CartDao {
 			return qr.query("select * from cart where username = ?", new BeanHandler<Cart>(Cart.class), username);
 		} catch (SQLException e) {
 			throw new RuntimeException();
+		}
+	}
+
+	@Override
+	public void delAllCarts(String username) {
+		try {
+			qr.update("delete from cart where username = ?", username);
+		} catch (SQLException e) {
+			throw new RuntimeException("翻车");
 		}
 	}
 

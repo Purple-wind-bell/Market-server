@@ -1,8 +1,12 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="/manage/header.jsp"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 <head>
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="http://cdn.bootcss.com/holder/2.8.2/holder.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/core.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.slim.min.js"></script>
@@ -22,11 +26,6 @@
 </head>
 
 <body>
-
-	<header>
-		<!--导入导航栏-->
-		<embed type="text/html" src="../base-web/head.jsp"></embed>
-	</header>
 
 	<div class="jumbotron">
 		<div class="container">
@@ -51,17 +50,15 @@
 		</div>
 	</div>
 
-	<footer>
-		<!--导入网页底部-->
-		<!--<div class="navbar-fixed-bottom">
-				<embed type="text/html" src="./base-web/foot.html">
-				</embed>
-			</div>-->
+	<footer> <!--导入网页底部-->
+	<div class="navbar-fixed-bottom">
+		<embed type="text/html" src="../base-web/foot.html">
+		</embed>
+	</div>
 
-		<div class="navbar navbar-default navbar-fixed-bottom">
+	<!-- <div class="navbar navbar-default navbar-fixed-bottom">
 			<div class="container text-center">&copy;版权所有</div>
-		</div>
-	</footer>
+		</div> --> </footer>
 </body>
 
 </html>

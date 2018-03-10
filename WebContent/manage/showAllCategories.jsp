@@ -29,12 +29,12 @@
 	<div class="jumbotron">
 		<div class="container">
 			<h3>分类列表</h3>
+			<c:if test="${empty listCategories }">
+				<h4>无数据，添加数据</h4>
+			</c:if>
 		</div>
 
-		<c:if test="${empty listCategories }">
-			<h4>无数据，添加数据</h4>
-		</c:if>
-		
+
 		<c:if test="${!empty listCategories }">
 			<table class="table table-hover">
 				<tr>

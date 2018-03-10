@@ -3,6 +3,7 @@
 <%@ include file="/manage/header.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>跳转页</title>
@@ -24,7 +25,18 @@
 </head>
 <body>
 	<br>
-	<h3>${message }</h3>
-
+	<div class="jumbotron">
+		<div class="container">
+			<p class="text-center">
+				<img src="../img/pcdongtai_b60a4b2d8e0d0d6392de47d4cec6fdc3.gif" />
+			</p>
+			<h3 class="text-center">${message }</h3>
+			<p>
+				<a class="btn btn-primary btn-lg"
+					href="${pageContext.request.contextPath }/manage/index.jsp"
+					role="button" target="_self">管理首页</a>
+			</p>
+		</div>
+	</div>
 </body>
 </html>

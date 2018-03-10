@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/manage/header.jsp"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 <head>
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>添加商品</title>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/core.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
@@ -25,18 +26,16 @@
 </head>
 
 <body>
-	<header>
-		<!--导入导航栏-->
-	</header>
+
 
 	<form
-		action="${pageContext.request.contextPath }/manage/ManageServlet?op=addProduct"
+		action="${pageContext.request.contextPath }manage/ManageServlet?op=addProduct"
 		method="post">
 		<div class="form-group">
 			<label for="name" class="col-sm-2 control-label">商品名称:</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control input-text-short"
-					name="name" id="name" placeholder="名称">
+				<input type="text" class="form-control input-text-short" name="name"
+					id="name" placeholder="名称">
 			</div>
 		</div>
 
@@ -80,11 +79,9 @@
 		</div>
 	</form>
 
-	<footer>
-		<!-- <div class="navbar navbar-default navbar-static-bottom">
+	<footer> <!-- <div class="navbar navbar-default navbar-static-bottom">
 			<div class="container text-center">&copy;版权所有</div>
-		</div> -->
-	</footer>
+		</div> --> </footer>
 </body>
 
 </html>
