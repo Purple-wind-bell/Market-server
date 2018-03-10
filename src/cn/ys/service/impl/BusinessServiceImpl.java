@@ -69,6 +69,11 @@ public class BusinessServiceImpl implements BusinessService {
 	}
 
 	@Override
+	public List<Product> findAllProductsByOwner(String ownername) {
+		return productDao.findByOwner(ownername);
+	}
+
+	@Override
 	public void editProduct(Product product) {
 		productDao.updateProduct(product.getId(), product);
 	}

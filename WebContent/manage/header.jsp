@@ -53,9 +53,11 @@ nav div div ul li ul {
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
+				<li><a href="${pageContext.request.contextPath }/index.html"
+					target="_blank">首页</a></li>
 				<li><a
 					href="${pageContext.request.contextPath }/user/login.html"
-					target="_blank">${username} 登录</a></li>
+					target="_blank">登录</a></li>
 				<li><a href="" target="_blank">帮助</a></li>
 				<li><a href="mailto:market@qq.com" target="_blank">联系我们</a></li>
 			</ul>

@@ -31,7 +31,7 @@
 		</div>
 
 		<c:if test="${empty listCategories }">
-			<h1>无数据，添加数据</h1>
+			<h4>无数据，添加数据</h4>
 		</c:if>
 		<c:if test="${!empty listCategories }"></c:if>
 		<table class="table table-hover">

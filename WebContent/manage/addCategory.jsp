@@ -28,7 +28,7 @@
 <body>
 
 	<form
-		action="${pageContext.request.contextPath }/manage/ManageServlet?op=addCategories"
+		action="${pageContext.request.contextPath }/manage/ManageServlet?op=addCategory"
 		method="post">
 		<div class="form-group">
 			<label for="name" class="col-sm-2 control-label">分类的名称:</label>

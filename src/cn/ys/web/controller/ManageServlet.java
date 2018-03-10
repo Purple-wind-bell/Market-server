@@ -13,6 +13,7 @@ import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,10 +44,10 @@ public class ManageServlet extends HttpServlet {
 		String op = request.getParameter("op");
 		if (op != null) {
 			switch (op) {
-			case "listCategory":
+			case "listCategories":
 				listCategory(request, response);
 				break;
-			case "addCategories":
+			case "addCategory":
 				addCategories(request, response);
 				break;
 			case "delCategoryById":
@@ -62,6 +63,9 @@ public class ManageServlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				break;
+			case "listProducts":
+				listProductsByOwner(request, response);
 				break;
 			case "delProductById":
 				delProductById(request, response);
@@ -139,7 +143,32 @@ public class ManageServlet extends HttpServlet {
 	 */
 	private void listProducts(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Product> list = s.findAllProduct();
+		// List<Product> list = s.findAllProduct();
+		// request.setAttribute("listProducts", list);
+		// request.getRequestDispatcher("/manage/showAllProducts.jsp").forward(request,
+		// response);
+	}
+
+	/**
+	 * 根据所有者查询商品
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	private void listProductsByOwner(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String username = null;
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("username")) {
+				username = cookie.getValue();
+			}
+		}
+
+		List<Product> list = s.findAllProductsByOwner(username);
 		request.setAttribute("listProducts", list);
 		request.getRequestDispatcher("/manage/showAllProducts.jsp").forward(request, response);
 	}

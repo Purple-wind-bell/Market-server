@@ -37,11 +37,11 @@
 				<a class="btn btn-primary btn-lg"
 					href="${pageContext.request.contextPath }/manage/addCategory.jsp">添加分类</a>
 				<a class="btn btn-primary btn-lg"
-					href="${pageContext.request.contextPath }/manage/ManageServlet?op=listCategory">查询分类</a>
+					href="${pageContext.request.contextPath }/manage/ManageServlet?op=listCategories">查询分类</a>
 				<a class="btn btn-primary btn-lg"
 					href="${pageContext.request.contextPath }/manage/addProduct.jsp">添加商品</a>
 				<a class="btn btn-primary btn-lg"
-					href="${pageContext.request.contextPath }/manage/ManageServlet?op=listProduct">查询商品</a>
+					href="${pageContext.request.contextPath }/manage/ManageServlet?op=listProducts">查询商品</a>
 				<a class="btn btn-primary btn-lg"
 					href="${pageContext.request.contextPath }/manage/ManageServlet?op=findCart">订单查询</a>
 				<a class="btn btn-primary btn-lg" href="http://www.baidu.com"

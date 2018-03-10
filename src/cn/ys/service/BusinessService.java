@@ -101,4 +101,11 @@ public interface BusinessService {
 	 */
 	void delProductById(Integer productId);
 
+	/**
+	 * 根据商品管理者查询商品
+	 * 
+	 * @return
+	 */
+	List<Product> findAllProductsByOwner(String ownername);
+
 }
