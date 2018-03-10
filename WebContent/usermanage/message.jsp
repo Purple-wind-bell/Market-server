@@ -34,10 +34,13 @@
 			<h3>${message }</h3>
 			</p>
 			<p>
-				<a class="btn btn-primary btn-lg" href="index.html" role="button"
-					target="_self">首页</a>
+				<a class="btn btn-primary btn-lg" href="usermanage/usermanage.html"
+					role="button" target="_self">用户管理</a>
 			</p>
 		</div>
 	</div>
+
+
+
 </body>
 </html>

@@ -23,7 +23,7 @@ import cn.ys.vo.Product;
  * Servlet implementation class CartServlet
  */
 @SuppressWarnings("serial")
-@WebServlet("/CartServlet")
+@WebServlet("/shopping/CartServlet")
 public class CartServlet extends HttpServlet {
 	private CartService cService = new CartServiceImpl();
 	private VerifyService verify = new VerifyServiceImpl();
@@ -41,13 +41,16 @@ public class CartServlet extends HttpServlet {
 			case "addToCart":
 				addToCart(request, response);
 				break;
+			case "editCart":
+				editCart(request, response);
+				break;
 			default:
 				other(request, response);
 				break;
 			}
 		} else {
 			request.setAttribute("message", "参数错误");
-			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			request.getRequestDispatcher("/shopping/message.jsp").forward(request, response);
 		}
 
 	}
@@ -63,9 +66,12 @@ public class CartServlet extends HttpServlet {
 	 * 
 	 * @param request
 	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
 	 */
-	private void other(HttpServletRequest request, HttpServletResponse response) {
-
+	private void other(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("message", "参数错误");
+		request.getRequestDispatcher("/shopping/message.jsp").forward(request, response);
 	}
 
 	/**
@@ -86,15 +92,21 @@ public class CartServlet extends HttpServlet {
 				username = verify.queryBindUsername(visitorID);
 			}
 		}
+		String productId = request.getParameter("productId");
+		String quantity = request.getParameter("quantity");
 
 		// 更新购物车
 		Cart cart = new Cart();
-		cart.setUsername(username);
-		cart.setProductId(request.getParameter("productId"));
-		cart.setQuantity(Integer.valueOf(request.getParameter("quantity")));
-		cService.addCart(cart);
-		// 跳转至购物车
-		request.getRequestDispatcher("/CartServlet?op=listCarts").forward(request, response);
+		if (username != null && productId != null && quantity != null) {
+			cart.setUsername(username);
+			cart.setProductId(productId);
+			cart.setQuantity(Integer.valueOf(quantity));
+			cService.addCart(cart);
+			// 跳转至购物车
+			request.getRequestDispatcher("/CartServlet?op=listCarts").forward(request, response);
+		} else {
+			other(request, response);
+		}
 	}
 
 	/**
@@ -128,6 +140,46 @@ public class CartServlet extends HttpServlet {
 		request.setAttribute("products", products);
 
 		// 跳转至购物车jsp
-		request.getRequestDispatcher("/Usermanage/carts.jsp").forward(request, response);
+		request.getRequestDispatcher("/shopping/carts.jsp").forward(request, response);
+	}
+
+	/**
+	 * 编辑购物车中的商品
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	private void editCart(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// 获取username
+		String username = request.getParameter("username");
+		if (username == null) {
+			Cookie[] cookies = request.getCookies();
+			for (Cookie cookie : cookies) {
+				if ("visitorID".equals(cookie.getName())) {
+					String visitorID = cookie.getValue();
+					username = verify.queryBindUsername(visitorID);
+				}
+			}
+			System.out.println("username is null,从cookie中获取username值");
+		}
+		String productId = request.getParameter("productId");
+		String quantity = request.getParameter("quantity");
+
+		// 更新购物车
+		Cart cart = new Cart();
+		if (username != null && productId != null && quantity != null) {
+			cart.setUsername(username);
+			cart.setProductId(productId);
+			cart.setQuantity(Integer.valueOf(quantity));
+			cService.addCart(cart);
+			// 跳转至购物车
+			request.getRequestDispatcher("/CartServlet?op=listCarts").forward(request, response);
+		} else {
+			other(request, response);
+		}
 	}
 }

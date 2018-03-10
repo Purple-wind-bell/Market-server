@@ -42,7 +42,12 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public void editCarts(Cart... carts) {
 		for (Cart cart : carts) {
-			cDao.editCart(cart);
+			if (cart.getQuantity() == 0) {
+				// 如果商品数量设置为0，则在购物车中删除该商品
+				cDao.delCart(cart);
+			} else {
+				cDao.editCart(cart);
+			}
 		}
 	}
 
