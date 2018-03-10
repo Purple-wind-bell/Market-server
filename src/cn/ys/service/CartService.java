@@ -14,17 +14,17 @@ public interface CartService {
 	/**
 	 * 查询购物车
 	 * 
-	 * @param userId
+	 * @param username
 	 * @return
 	 */
-	List<Cart> findCartByUserId(String userId);
+	List<Cart> findCartByUsername(String username);
 
 	/**
-	 * 保存购物车商品
+	 * 添加到购物车，购物车中单种商品的数量增加
 	 * 
 	 * @param cart
 	 */
-	void saveCart(Cart... carts);
+	void addCart(Cart... carts);
 
 	/**
 	 * 删除购物车商品

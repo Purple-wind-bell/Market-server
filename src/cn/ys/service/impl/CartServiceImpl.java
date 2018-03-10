@@ -11,14 +11,24 @@ public class CartServiceImpl implements CartService {
 	private CartDao cDao = new CartDaoImpl();
 
 	@Override
-	public List<Cart> findCartByUserId(String userId) {
-		return cDao.findAll(userId);
+	public List<Cart> findCartByUsername(String username) {
+		return cDao.findAll(username);
 	}
 
 	@Override
-	public void saveCart(Cart... carts) {
-		for (Cart cart : carts) {
-			cDao.save(cart);
+	public void addCart(Cart... carts) {
+		if (carts != null) {
+			for (Cart cart : carts) {
+				Cart c = cDao.findCart(cart.getUsername(), cart.getProductId());
+				// 购物车中已有该商品
+				if (c != null) {
+					c.setQuantity(c.getQuantity() + 1);
+					cDao.editCart(c);
+				} else {
+					// 没有该商品，添加
+					cDao.save(cart);
+				}
+			}
 		}
 	}
 

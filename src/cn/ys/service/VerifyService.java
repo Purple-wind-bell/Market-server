@@ -42,7 +42,7 @@ public interface VerifyService {
 	 * @param visitorID
 	 * @return 未绑定，返回null；否则返回username
 	 */
-	String queryBindUser(String visitorID);
+	String queryBindUsername(String visitorID);
 
 	/**
 	 * 清除token
