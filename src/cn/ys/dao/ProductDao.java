@@ -44,7 +44,7 @@ public interface ProductDao {
 	 *            商品名称
 	 * @return
 	 */
-	Product findByName(String productName);
+	List<Product> findByName(String productName);
 
 	/**
 	 * 查询商品
@@ -54,5 +54,12 @@ public interface ProductDao {
 	 * @return
 	 */
 	Product findById(Integer id);
+
+	/**
+	 * 根据所有者查询
+	 * 
+	 * @return
+	 */
+	List<Product> findByOwner(String ownername);
 
 }

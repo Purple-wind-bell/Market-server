@@ -16,8 +16,10 @@ public class ProductDaoImpl implements ProductDao {
 	public boolean addProduct(Product product) {
 		int row = -1;
 		try {
-			row = qr.update("insert into product (name, price, description) values(?,?,?)", product.getName(),
-					product.getPrice(), product.getDescription());
+			row = qr.update(
+					"insert into product (name, ownername, price, path, filename, description) values(?,?,?,?,?,?)",
+					product.getName(), product.getOwnername(), product.getPrice(), product.getPath(),
+					product.getFilename(), product.getDescription());
 		} catch (SQLException e) {
 			throw new RuntimeException();
 		}
@@ -28,6 +30,16 @@ public class ProductDaoImpl implements ProductDao {
 	public List<Product> findAll() {
 		try {
 			return qr.query("select * from product", new BeanListHandler<Product>(Product.class));
+		} catch (SQLException e) {
+			throw new RuntimeException();
+		}
+	}
+
+	@Override
+	public List<Product> findByOwner(String ownername) {
+		try {
+			return qr.query("select * from product where ownername = ?", new BeanListHandler<Product>(Product.class),
+					ownername);
 		} catch (SQLException e) {
 			throw new RuntimeException();
 		}
@@ -55,10 +67,11 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public Product findByName(String productName) {
-		Product p = null;
+	public List<Product> findByName(String productName) {
+		List<Product> p = null;
 		try {
-			p = qr.query("select * from product where name = ?", new BeanHandler<Product>(Product.class), productName);
+			p = qr.query("select * from product where name = ?", new BeanListHandler<Product>(Product.class),
+					productName);
 		} catch (SQLException e) {
 			throw new RuntimeException("ss");
 		}

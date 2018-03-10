@@ -5,11 +5,13 @@ import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@WebFilter(filterName = "StaticResourseFilter", initParams = {
-//		@WebInitParam(name = "html", value = "1") }, value = "/*", description = "不同资源的缓存时间设置")
+@WebFilter(filterName = "StaticResourseFilter", initParams = {
+		@WebInitParam(name = "html", value = "1") }, value = "/*", description = "不同资源的缓存时间设置")
 public class StaticResourseFilter extends AbstractFilter {
 	private FilterConfig filterConfig;
 

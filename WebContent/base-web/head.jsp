@@ -1,3 +1,4 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -60,12 +61,29 @@ nav div div ul li ul {
 
 			<ul class="nav navbar-nav navbar-right">
 				<li>
-					<!--用户名显示  -->
-					 <c:if test="${empty cookie.username.value }">
+					<!--用户名显示  --> <%-- 					<%
+ 	Cookie[] cookies = request.getCookies(); //从request中获的Cookie对象的集合
+ 	String username = null;
+ 	if (cookies != null) {
+ 		for (int i = 0; i < cookies.length; i++) { //遍历cookie对象集合
+ 			if (cookies[i].getName().equals("username")) {//如果cookie对象的名称是mrCookie
+ 				username = cookies[i].getValue();
+ 			}
+ 		}
+ 	}
+
+ 	if (username == null) {//没有登录
+ %><a href="${pageContext.request.contextPath }/login.html"
+					target="_blank">登录</a> <%
+ 	} else {//已经登录
+ %> 欢迎[<b><%=username%></b>] <%
+ 	}
+ %>  --%> 
+ <c:if test="${cookie['username'].value eq null}">
 						<a href="${pageContext.request.contextPath }/login.html"
-							target="_blank"></a>
-					</c:if> <c:if test="${!empty cookie.username.value }">
-						${cookie.username.value }
+							target="_blank">登录</a>
+					</c:if> <c:if test="${cookie['username'].value eq null} ">
+						${cookie['username'].value }
 					</c:if>
 				</li>
 				<li><a href="${pageContext.request.contextPath }/regist.html"
@@ -79,7 +97,8 @@ nav div div ul li ul {
 						<li class="col-sm-3"><a
 							href="${pageContext.request.contextPath }/shopping/CartServlet?op=listCarts"
 							target="_blank">购物车</a></li>
-						<li class="col-sm-3"><a href="${pageContext.request.contextPath }/usermanage/usermanage.html"
+						<li class="col-sm-3"><a
+							href="${pageContext.request.contextPath }/usermanage/usermanage.html"
 							target="_blank">个人设置</a></li>
 						<li class="col-sm-3"><a
 							href="${pageContext.request.contextPath }/manage" target="_blank">后台管理</a></li>

@@ -30,7 +30,7 @@
 	<div class="jumbotron">
 		<div class="container">
 			<p class="text-center">
-				<img src="img/pcdongtai_b60a4b2d8e0d0d6392de47d4cec6fdc3.gif" />
+				<!-- <img src="img/pcdongtai_b60a4b2d8e0d0d6392de47d4cec6fdc3.gif" /> -->
 			</p>
 			<p class="text-center">
 			<h3>${message }</h3>

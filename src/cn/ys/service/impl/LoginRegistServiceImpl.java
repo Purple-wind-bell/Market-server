@@ -1,8 +1,6 @@
 package cn.ys.service.impl;
 
-import cn.ys.dao.TokenDao;
 import cn.ys.dao.UserDao;
-import cn.ys.dao.impl.TokenDaoImpl;
 import cn.ys.dao.impl.UserDaoImpl;
 import cn.ys.service.LoginRegistService;
 import cn.ys.service.VerifyService;

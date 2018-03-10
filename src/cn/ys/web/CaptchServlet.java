@@ -33,11 +33,11 @@ public class CaptchServlet extends HttpServlet {
 		Cookie[] cookies = request.getCookies();
 		String visitorID = null;
 		for (Cookie cookie : cookies) {
-			if (cookie.getValue().equals("visitorID")) {
+			if (cookie.getName().equals("visitorID")) {
 				visitorID = cookie.getValue();
 			}
 		}
-
+		System.out.println(visitorID);
 		// 添加验证码
 		verify.updateWebCode(code, visitorID);
 		try {

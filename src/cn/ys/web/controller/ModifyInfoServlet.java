@@ -29,16 +29,17 @@ public class ModifyInfoServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");// 客户端网页我们控制为UTF-8
 		response.setCharacterEncoding("UTF-8");
 		String op = request.getParameter("op");
-		String visitorID = null;
-		Cookie[] cookies = request.getCookies();
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("visitorID")) {
-				visitorID = cookie.getValue();
+		if (op != null) {
+			switch (op) {
+			case "resetPasswd":
+				resetPassword(request, response);
+				break;
+			default:
+				building(request, response);
+				break;
 			}
-		}
-
-		if ("ResetPasswd".equalsIgnoreCase(op)) {
-			resetPassword(request, response, visitorID);
+		} else {
+			building(request, response);
 		}
 	}
 
@@ -56,12 +57,20 @@ public class ModifyInfoServlet extends HttpServlet {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	private void resetPassword(HttpServletRequest request, HttpServletResponse response, String visitorID)
+	private void resetPassword(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		// 读取信息
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String code = request.getParameter("code");
+
+		String visitorID = null;
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("visitorID")) {
+				visitorID = cookie.getValue();
+			}
+		}
 
 		if (verify.isCodeEffective(code, visitorID)) {
 			switch (modifyInfo.resetPassword(username, password)) {
@@ -94,4 +103,17 @@ public class ModifyInfoServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * 建设中
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void building(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setAttribute("message", "建设中...");
+		request.getRequestDispatcher("/manage/message.jsp").forward(request, response);
+	}
 }

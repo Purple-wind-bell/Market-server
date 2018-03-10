@@ -29,23 +29,15 @@ public class LoginRegistServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
 		String op = request.getParameter("op");
-		String visitorID = null;
-		Cookie[] cookies = request.getCookies();
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("visitorID")) {
-				visitorID = cookie.getValue();
-			}
-		}
 
 		if (op != null) {
 			switch (op) {
 			case "login":
-				loginManage(request, response, visitorID);
+				loginManage(request, response);
 				break;
 			case "regist":
-				registManage(request, response, visitorID);
+				registManage(request, response);
 				break;
 			case "logout":
 				logoutManage(request, response);
@@ -54,8 +46,8 @@ public class LoginRegistServlet extends HttpServlet {
 				break;
 			}
 		} else {
-			out.write("未知错误！！！即将前往主页");
-			response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/index.html");
+			request.setAttribute("message", "未知错误！！！");
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
 	}
 
@@ -74,10 +66,18 @@ public class LoginRegistServlet extends HttpServlet {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	private void loginManage(HttpServletRequest request, HttpServletResponse response, String visitorID)
+	private void loginManage(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		PrintWriter out = response.getWriter();
 		// 读取信息
+		String visitorID = null;
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("visitorID")) {
+				visitorID = cookie.getValue();
+			}
+		}
+
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String code = request.getParameter("code");
@@ -135,10 +135,8 @@ public class LoginRegistServlet extends HttpServlet {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	private void registManage(HttpServletRequest request, HttpServletResponse response, String visitorID)
+	private void registManage(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		PrintWriter out = response.getWriter();
 		// 读取信息
 		User user = new User();
 		user.setUsername(request.getParameter("username"));
@@ -147,39 +145,41 @@ public class LoginRegistServlet extends HttpServlet {
 		user.setPhone(request.getParameter("phone"));
 		String code = request.getParameter("code");
 
+		String visitorID = null;
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("visitorID")) {
+				visitorID = cookie.getValue();
+			}
+		}
+
 		if (verify.isCodeEffective(code, visitorID)) {
 			// 检测用户是否存在
 			switch (lr.registUser(user)) {
 			case 1:
 				// 用户不存在，添加用户进入数据库
-				request.setAttribute("message", "注册成功，即将跳转主页...");
+				request.setAttribute("message", "注册成功");
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
-				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/index.html");
 				break;
 			case 2:
 				// 用户已存在
-				request.setAttribute("message", "用户已存在！！！即将前往主页，请在主页登录...");
+				request.setAttribute("message", "用户已存在！！！");
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
-				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/index.html");
 				break;
 			case 3:
 				// 注册失败，未知错误
-				request.setAttribute("message", "注册失败，未知错误！！！即将前往主页...");
+				request.setAttribute("message", "注册失败，未知错误！！！");
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
-				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/index.html");
 				break;
 			default:
-				request.setAttribute("message", "即将前往主页...");
+				request.setAttribute("message", "前往主页...");
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
-				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/index.html");
 				break;
 			}
 		} else {
-			request.setAttribute("message", "验证码错误！！！即将前往注册页...");
+			request.setAttribute("message", "验证码错误！！！");
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
-			response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/regist.html");
 		}
-		out.close();
 	}
 
 	/**
@@ -207,9 +207,8 @@ public class LoginRegistServlet extends HttpServlet {
 		// 清除token
 		verify.clearToken(visitorID);
 
-		request.setAttribute("message", "注销成功！！！即将前往主页...");
+		request.setAttribute("message", "注销成功！！！");
 		request.getRequestDispatcher("/message.jsp").forward(request, response);
-		response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/index.html");
 
 	}
 }

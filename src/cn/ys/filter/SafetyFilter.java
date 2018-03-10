@@ -26,9 +26,8 @@ public class SafetyFilter extends AbstractFilter {
 		String visitorID = null;
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
-				if (cookie.getValue().equals("visitorID")) {
+				if (cookie.getName().equals("visitorID")) {
 					flag = true;
-					visitorID = cookie.getValue();
 				}
 			}
 		}
@@ -38,7 +37,7 @@ public class SafetyFilter extends AbstractFilter {
 			visitorID = UUID.randomUUID().toString();
 			Cookie cookie = new Cookie("visitorID", visitorID);
 			cookie.setPath("/");
-			cookie.setMaxAge(3600);
+			cookie.setMaxAge(36000);
 			response.addCookie(cookie);
 		}
 		try {

@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class Product implements Serializable {
 	private Integer id;
 	private String name;
+	private String ownername;
 	private Float price;
 	/** 存放图片路径 */
 	private String path;
@@ -26,11 +27,12 @@ public class Product implements Serializable {
 	public Product() {
 	}
 
-	public Product(Integer id, String name, Float price, String path, String filename, String description,
-			Category category) {
+	public Product(Integer id, String name, String ownername, Float price, String path, String filename,
+			String description, Category category) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.ownername = ownername;
 		this.price = price;
 		this.path = path;
 		this.filename = filename;
@@ -92,6 +94,14 @@ public class Product implements Serializable {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public String getOwnername() {
+		return ownername;
+	}
+
+	public void setOwnername(String ownername) {
+		this.ownername = ownername;
 	}
 
 }
