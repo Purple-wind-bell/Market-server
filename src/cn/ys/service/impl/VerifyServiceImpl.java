@@ -66,17 +66,6 @@ public class VerifyServiceImpl implements VerifyService {
 	}
 
 	@Override
-	public String queryUUIDByUsername(String username) {
-		Token token = null;
-		// if (tokenMap.containsKey(visitorID)) {
-		// token = tokenMap.get(visitorID);
-		// } else {
-		token = tdao.findByUsername(username);
-		// }
-		return token == null ? null : token.getUuid();
-	}
-
-	@Override
 	public void clearToken(String visitorID) {
 		// tokenMap.remove(visitorID);
 		tdao.delToken(visitorID);

@@ -51,10 +51,4 @@ public interface VerifyService {
 	 */
 	void clearToken(String visitorID);
 
-	/**
-	 * 查询绑定的visitorID
-	 * @param username
-	 * @return
-	 */
-	String queryUUIDByUsername(String username);
 }

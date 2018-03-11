@@ -70,7 +70,6 @@ public class LoginRegistServlet extends HttpServlet {
 	 */
 	private void loginManage(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		PrintWriter out = response.getWriter();
 		// 读取信息
 		String visitorID = null;
 		Cookie[] cookies = request.getCookies();
@@ -102,31 +101,25 @@ public class LoginRegistServlet extends HttpServlet {
 
 				request.setAttribute("message", "登录成功");
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
-				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/index.html");
 				break;
 			case 2:
-				request.setAttribute("message", "密码错误，即将跳转登录页");
+				request.setAttribute("message", "密码错误");
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
-				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/login.html");
 				break;
 			case 3: // 用户不存在
-				request.setAttribute("message", "用户不存在！！！即将前往登录页");
+				request.setAttribute("message", "用户不存在！！！");
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
-				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/login.html");
 				break;
 			case 4:
 			default:
-				request.setAttribute("message", "未知错误！！！即将前往主页");
+				request.setAttribute("message", "未知错误！！！");
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
-				response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/index.html");
 				break;
 			}
 		} else {
-			request.setAttribute("message", "验证码错误！！！即将前往登录页");
+			request.setAttribute("message", "验证码错误！！！");
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
-			response.setHeader("Refresh", "2;URL=" + request.getContextPath() + "/login.html");
 		}
-		out.close();
 	}
 
 	/**

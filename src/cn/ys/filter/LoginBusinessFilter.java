@@ -38,7 +38,7 @@ public class LoginBusinessFilter extends AbstractFilter {
 		}
 
 		try {
-			if (username != null && visitorID.equals(verify.queryUUIDByUsername(username).trim())) {
+			if (username != null && username.equals(verify.queryBindUsername(visitorID).trim())) {
 				// 已登录
 				chain.doFilter(request, response);
 			} else {

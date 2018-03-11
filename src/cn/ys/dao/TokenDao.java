@@ -16,7 +16,6 @@ public interface TokenDao {
 	 */
 	void save(Token token);
 
-	@Deprecated
 	/**
 	 * 查询登录信息
 	 * 
@@ -33,11 +32,4 @@ public interface TokenDao {
 	 */
 	boolean delToken(String uuid);
 
-	/**
-	 * 查询token
-	 * 
-	 * @param username
-	 * @return
-	 */
-	Token findByUsername(String username);
 }

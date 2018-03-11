@@ -44,16 +44,5 @@ public class TokenDaoImpl implements TokenDao {
 		return token;
 	}
 
-	@Override
-	public Token findByUsername(String username) {
-		Token token = null;
-		try {
-			token = qr.query("select * from token where username = ?", new BeanHandler<Token>(Token.class), username);
-		} catch (SQLException e) {
-			// throw new RuntimeException("token查询失败");
-			e.printStackTrace();
-		}
-		return token;
-	}
 
 }
