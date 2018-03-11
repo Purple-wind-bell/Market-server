@@ -118,10 +118,10 @@ public class ManageServlet extends HttpServlet {
 		for (FileItem item : items) {
 			if (item.isFormField()) {
 				// 普通字段
-				product = processFormField(item, product);
+				processFormField(item, product);
 			} else {
 				// 上传字段
-				product = processUploadFormField(item, product);
+				processUploadFormField(item, product);
 			}
 		}
 		// 保存数据
@@ -265,7 +265,7 @@ public class ManageServlet extends HttpServlet {
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
-	private Product processFormField(FileItem item, Product product)
+	private void processFormField(FileItem item, Product product)
 			throws UnsupportedEncodingException, IllegalAccessException, InvocationTargetException {
 		// 表单name表单的输入域的name和book的属性名保持一致
 		String fieldName = item.getFieldName();
@@ -276,13 +276,11 @@ public class ManageServlet extends HttpServlet {
 		if ("category".equals(fieldName)) {
 			// 分类 关联分类的信息
 			Category category = s.findCategoryById(Integer.parseInt(fieldValue));
-			System.out.println("category:" + (category == null));
 			product.setCategory(category);
 		} else {
 			// 其他属性
 			BeanUtils.setProperty(product, fieldName, fieldValue);// 相当于调用队形的setXXX
 		}
-		return product;
 	}
 
 	/**
@@ -292,7 +290,7 @@ public class ManageServlet extends HttpServlet {
 	 * @param product
 	 * @throws Exception
 	 */
-	private Product processUploadFormField(FileItem item, Product product) throws Exception {
+	private void processUploadFormField(FileItem item, Product product) throws Exception {
 		// 得到书籍存放的路径 根目录下/images
 		// C:\apache-tomcat-9\webapps\bookstore\images \1\2.....jpg
 		String storeDirection = getServletContext().getRealPath("/images");
@@ -303,8 +301,6 @@ public class ManageServlet extends HttpServlet {
 		String fileName = UUID.randomUUID() + "." + FilenameUtils.getExtension(item.getName());
 		product.setFilename(fileName);
 		item.write(new File(storeDirection + File.separator + childDirection, fileName));
-
-		return product;
 	}
 
 	@Override

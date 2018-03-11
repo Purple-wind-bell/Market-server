@@ -4,6 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.beanutils.BeanUtils;
 
 public class FillBeanUtil {
+	
+	private FillBeanUtil() {
+	}
+
 	public static <T> T fillBean(HttpServletRequest request, Class<T> clazz) {
 		try {
 			T bean = clazz.getDeclaredConstructor().newInstance();

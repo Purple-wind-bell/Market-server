@@ -24,7 +24,6 @@ public class DynamicResourseFilter extends AbstractFilter {
 		response.setHeader("Expires", "-1");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setHeader("pragma", "no-cache");
-		System.out.println("dy");
 		try {
 			chain.doFilter(request, response);
 		} catch (IOException | ServletException e) {

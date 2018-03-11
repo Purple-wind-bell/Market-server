@@ -79,7 +79,6 @@ public class CateGoryDaoImpl implements CategoryDao {
 	public boolean update(Integer id, Category category) {
 		int row = -1;
 		try {
-			System.out.println(id);
 			row = qr.update("update category set name = ?, description = ? where id = ?", category.getName(),
 					category.getDescription(), id);
 		} catch (SQLException e) {

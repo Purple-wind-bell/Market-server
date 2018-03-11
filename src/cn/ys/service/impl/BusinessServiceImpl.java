@@ -39,7 +39,6 @@ public class BusinessServiceImpl implements BusinessService {
 
 	@Override
 	public boolean updateCategory(Integer id, Category category) {
-		System.out.println(category.getDescription());
 		return catedao.update(id, category);
 	}
 

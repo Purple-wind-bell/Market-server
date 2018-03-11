@@ -1,9 +1,7 @@
 package cn.ys.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.UUID;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -16,6 +14,7 @@ import cn.ys.service.LoginRegistService;
 import cn.ys.service.VerifyService;
 import cn.ys.service.impl.LoginRegistServiceImpl;
 import cn.ys.service.impl.VerifyServiceImpl;
+import cn.ys.util.Constant;
 import cn.ys.vo.User;
 
 /**
@@ -49,7 +48,7 @@ public class LoginRegistServlet extends HttpServlet {
 			}
 		} else {
 			request.setAttribute("message", "未知错误！！！");
-			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			request.getRequestDispatcher(Constant.LOGIN_MESSAGE_URI).forward(request, response);
 		}
 	}
 
@@ -100,25 +99,25 @@ public class LoginRegistServlet extends HttpServlet {
 				verify.bindUser(visitorID, username);
 
 				request.setAttribute("message", "登录成功");
-				request.getRequestDispatcher("/message.jsp").forward(request, response);
+				request.getRequestDispatcher(Constant.LOGIN_MESSAGE_URI).forward(request, response);
 				break;
 			case 2:
 				request.setAttribute("message", "密码错误");
-				request.getRequestDispatcher("/message.jsp").forward(request, response);
+				request.getRequestDispatcher(Constant.LOGIN_MESSAGE_URI).forward(request, response);
 				break;
 			case 3: // 用户不存在
 				request.setAttribute("message", "用户不存在！！！");
-				request.getRequestDispatcher("/message.jsp").forward(request, response);
+				request.getRequestDispatcher(Constant.LOGIN_MESSAGE_URI).forward(request, response);
 				break;
 			case 4:
 			default:
 				request.setAttribute("message", "未知错误！！！");
-				request.getRequestDispatcher("/message.jsp").forward(request, response);
+				request.getRequestDispatcher(Constant.LOGIN_MESSAGE_URI).forward(request, response);
 				break;
 			}
 		} else {
 			request.setAttribute("message", "验证码错误！！！");
-			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			request.getRequestDispatcher(Constant.LOGIN_MESSAGE_URI).forward(request, response);
 		}
 	}
 
@@ -155,26 +154,26 @@ public class LoginRegistServlet extends HttpServlet {
 			case 1:
 				// 用户不存在，添加用户进入数据库
 				request.setAttribute("message", "注册成功");
-				request.getRequestDispatcher("/message.jsp").forward(request, response);
+				request.getRequestDispatcher(Constant.LOGIN_MESSAGE_URI).forward(request, response);
 				break;
 			case 2:
 				// 用户已存在
 				request.setAttribute("message", "用户已存在！！！");
-				request.getRequestDispatcher("/message.jsp").forward(request, response);
+				request.getRequestDispatcher(Constant.LOGIN_MESSAGE_URI).forward(request, response);
 				break;
 			case 3:
 				// 注册失败，未知错误
 				request.setAttribute("message", "注册失败，未知错误！！！");
-				request.getRequestDispatcher("/message.jsp").forward(request, response);
+				request.getRequestDispatcher(Constant.LOGIN_MESSAGE_URI).forward(request, response);
 				break;
 			default:
 				request.setAttribute("message", "前往主页...");
-				request.getRequestDispatcher("/message.jsp").forward(request, response);
+				request.getRequestDispatcher(Constant.LOGIN_MESSAGE_URI).forward(request, response);
 				break;
 			}
 		} else {
 			request.setAttribute("message", "验证码错误！！！");
-			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			request.getRequestDispatcher(Constant.LOGIN_MESSAGE_URI).forward(request, response);
 		}
 	}
 
@@ -204,7 +203,7 @@ public class LoginRegistServlet extends HttpServlet {
 		verify.clearToken(visitorID);
 
 		request.setAttribute("message", "注销成功！！！");
-		request.getRequestDispatcher("/message.jsp").forward(request, response);
+		request.getRequestDispatcher(Constant.LOGIN_MESSAGE_URI).forward(request, response);
 
 	}
 }

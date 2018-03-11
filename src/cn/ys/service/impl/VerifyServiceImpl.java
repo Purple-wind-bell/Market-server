@@ -12,7 +12,6 @@ import cn.ys.vo.Token;
 
 public class VerifyServiceImpl implements VerifyService {
 	private static Map<String, Code> codeMap = new HashMap<>();
-	private static Map<String, Token> tokenMap = new HashMap<>();
 	private TokenDao tdao = new TokenDaoImpl();
 
 	@Override
@@ -50,18 +49,13 @@ public class VerifyServiceImpl implements VerifyService {
 	public void bindUser(String visitorID, String username) {
 		Token token = new Token(username, visitorID);
 		clearToken(visitorID);
-		// tokenMap.put(visitorID, token);
 		tdao.save(token);
 	}
 
 	@Override
 	public String queryBindUsername(String visitorID) {
 		Token token = null;
-		// if (tokenMap.containsKey(visitorID)) {
-		// token = tokenMap.get(visitorID);
-		// } else {
 		token = tdao.findByUUID(visitorID);
-		// }
 		return token == null ? null : token.getUsername();
 	}
 

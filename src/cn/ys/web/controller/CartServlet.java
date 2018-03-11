@@ -14,6 +14,7 @@ import cn.ys.dao.ProductDao;
 import cn.ys.dao.impl.ProductDaoImpl;
 import cn.ys.service.CartService;
 import cn.ys.service.impl.CartServiceImpl;
+import cn.ys.util.Constant;
 import cn.ys.vo.Cart;
 import cn.ys.vo.Product;
 import cn.ys.web.bean.CartBean;
@@ -24,8 +25,15 @@ import cn.ys.web.bean.CartBean;
 @SuppressWarnings("serial")
 @WebServlet("/shopping/CartServlet")
 public class CartServlet extends HttpServlet {
-	private CartService cService = new CartServiceImpl();
-	private ProductDao pDao = new ProductDaoImpl();
+	private CartService cService = null;
+	private ProductDao pDao = null;
+
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		cService = new CartServiceImpl();
+		pDao = new ProductDaoImpl();
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,7 +62,7 @@ public class CartServlet extends HttpServlet {
 			}
 		} else {
 			request.setAttribute("message", "参数错误");
-			request.getRequestDispatcher("/shopping/message.jsp").forward(request, response);
+			request.getRequestDispatcher(Constant.SHOPPING_MESSAGE_URI).forward(request, response);
 		}
 
 	}
@@ -82,7 +90,7 @@ public class CartServlet extends HttpServlet {
 		cService.delAllCarts(username);
 		// 跳转至提示页面
 		request.setAttribute("message", "购物车已清空！！！");
-		request.getRequestDispatcher("/shopping/message.jsp").forward(request, response);
+		request.getRequestDispatcher(Constant.SHOPPING_MESSAGE_URI).forward(request, response);
 	}
 
 	/**
@@ -131,7 +139,7 @@ public class CartServlet extends HttpServlet {
 	 */
 	private void other(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("message", "参数错误");
-		request.getRequestDispatcher("/shopping/message.jsp").forward(request, response);
+		request.getRequestDispatcher(Constant.SHOPPING_MESSAGE_URI).forward(request, response);
 	}
 
 	/**
@@ -164,7 +172,7 @@ public class CartServlet extends HttpServlet {
 			cService.addCart(cart);
 			// 跳转至购物车
 			request.setAttribute("message", "成功添加到购物车！");
-			request.getRequestDispatcher("/shopping/message.jsp").forward(request, response);
+			request.getRequestDispatcher(Constant.SHOPPING_MESSAGE_URI).forward(request, response);
 		} else {
 			other(request, response);
 		}

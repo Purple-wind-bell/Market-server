@@ -12,11 +12,11 @@ import java.sql.SQLException;
  */
 public class DBUtil {
 	/** MySQL数据库连接 */
-	private static String mysqlUrl = Constant.getMysqlUrl();
+	private static String mysqlUrl = Constant.MYSQL_URL;
 	/** MySQL用户 */
-	private static String mysqlUser = Constant.getMysqlUser();
+	private static String mysqlUser = Constant.MYSQL_USER;
 	/** MySQL用户密码 */
-	private static String mysqlPassword = Constant.getMysqlPassword();
+	private static String mysqlPassword = Constant.MYSQL_PASSWORD;
 
 	private DBUtil() {
 	}

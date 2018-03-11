@@ -38,7 +38,8 @@ public class LoginBusinessFilter extends AbstractFilter {
 		}
 
 		try {
-			if (username != null && username.equals(verify.queryBindUsername(visitorID).trim())) {
+			if (username != null && visitorID != null && verify.queryBindUsername(visitorID) != null
+					&& username.equals(verify.queryBindUsername(visitorID).trim())) {
 				// 已登录
 				chain.doFilter(request, response);
 			} else {

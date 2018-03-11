@@ -10,10 +10,11 @@ import cn.ys.vo.Product;
  * @author Administrator
  *
  */
+@SuppressWarnings("serial")
 public class CartBean implements Serializable {
 	private Product product;
 	private Integer quantity;
-	// 小计
+	// 价格小计
 	private Float subprice;
 
 	public CartBean() {

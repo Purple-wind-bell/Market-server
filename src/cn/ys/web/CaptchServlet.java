@@ -20,7 +20,13 @@ import cn.ys.service.impl.VerifyServiceImpl;
 
 public class CaptchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private VerifyService verify = new VerifyServiceImpl();
+	private VerifyService verify = null;
+
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		verify = new VerifyServiceImpl();
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,7 +43,6 @@ public class CaptchServlet extends HttpServlet {
 				visitorID = cookie.getValue();
 			}
 		}
-		System.out.println(visitorID);
 		// 添加验证码
 		verify.updateWebCode(code, visitorID);
 		try {
