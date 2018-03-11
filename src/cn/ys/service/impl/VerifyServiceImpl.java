@@ -25,20 +25,13 @@ public class VerifyServiceImpl implements VerifyService {
 			codeMap.put(visitorId, new Code(visitorId, code, new Timestamp(new Date().getTime())));
 			System.out.println("add:" + code);
 		}
-		System.out.println("已添加" + codeMap.get(visitorId).getCode());
-		System.out.println("codeMap.length:" + codeMap.size());
-		System.out.println("update-id:" + visitorId);
+		System.out.println("已添加" + codeMap.get(visitorId).getVcode());
 	}
 
 	@Override
 	public boolean isCodeEffective(String code, String visitorId) {
 		Code c = codeMap.get(visitorId);
-		System.out.println(code);
-		System.out.println(c == null);
-		System.out.println("e- codeMap.length:" + codeMap.size());
-		System.out.println("query-id:" + visitorId);
-
-		if (c != null && c.getCode().equalsIgnoreCase(code)) {
+		if (c != null && c.getVcode().equalsIgnoreCase(code)) {
 			return true;
 		} else {
 			return false;

@@ -9,14 +9,17 @@ import java.sql.Timestamp;
  *
  */
 public class Code {
-	String id;// 访问者id
-	String code;
+	/** 访问者id */
+	String id;
+	/** 验证码 */
+	String vcode;
+	/** 验证码生成时间 */
 	Timestamp timestamp;
 
-	public Code(String id, String code, Timestamp timestamp) {
+	public Code(String id, String vcode, Timestamp timestamp) {
 		super();
 		this.id = id;
-		this.code = code;
+		this.vcode = vcode;
 		this.timestamp = timestamp;
 	}
 
@@ -24,8 +27,8 @@ public class Code {
 		return id;
 	}
 
-	public String getCode() {
-		return code;
+	public String getVcode() {
+		return vcode;
 	}
 
 	public Timestamp getTimestamp() {
@@ -36,12 +39,13 @@ public class Code {
 		this.id = id;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setVcode(String vcode) {
+		this.vcode = vcode;
 	}
 
 	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
 	}
 
+	//
 }
