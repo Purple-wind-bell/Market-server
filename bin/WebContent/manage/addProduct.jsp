@@ -35,8 +35,8 @@
 		<div class="form-group">
 			<label for="name" class="col-sm-2 control-label">商品名称:</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control input-text-short"
-					name="name" id="name" placeholder="名称">
+				<input type="text" class="form-control input-text-short" name="name"
+					id="name" placeholder="名称">
 			</div>
 		</div>
 

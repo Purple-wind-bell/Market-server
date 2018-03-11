@@ -76,7 +76,8 @@ nav div div ul li ul {
 					%><a href="${pageContext.request.contextPath }/login.html"
 					target="_blank">登录</a> <%
  	} else {//已经登录
- %> 欢迎,<b><%=username%></b><%
+ %> 欢迎,<b><%=username%></b>
+					<%
  	}
  %>
 				</li>

@@ -35,11 +35,13 @@
 			</p>
 			<p>
 				<a class="btn btn-primary btn-lg"
-					href="${pageContext.request.contextPath }/shopping/shopping-index.html" role="button" target="_self">购物首页</a>
-				<a class="btn btn-primary btn-lg"
-					href="${pageContext.request.contextPath }/shopping/CartServlet?op=listCarts" role="button"
-					target="_self">购物车</a> <a class="btn btn-primary btn-lg"
-					href="http://www.baidu.com" role="button" target="_self">了解更多</a>
+					href="${pageContext.request.contextPath }/shopping/shopping-index.html"
+					role="button" target="_self">购物首页</a> <a
+					class="btn btn-primary btn-lg"
+					href="${pageContext.request.contextPath }/shopping/CartServlet?op=listCarts"
+					role="button" target="_self">购物车</a> <a
+					class="btn btn-primary btn-lg" href="http://www.baidu.com"
+					role="button" target="_self">了解更多</a>
 			</p>
 		</div>
 	</div>
